@@ -67,7 +67,7 @@
     list-style: none;
     display: flex;
     gap: 1.5rem;
-    margin-left: auto; /* Push links to the left */
+    margin-left: auto;
     }
 
     .navbar ul li a {
@@ -80,11 +80,64 @@
     color: #00ff40;
     }
 
-    /* Language Toggle (Right-Aligned) */
+    /* Logo con effetto blend avanzato */
+    .logo-container {
+    position: relative;
+    height: 40px;
+    width: 120px;
+    margin-right: 1rem;
+    }
+
+    .logo-blend {
+    position: absolute;
+    height: 150%;
+    width: 150%;
+    background: url('https://i.postimg.cc/cJC4CcR0/logor.png') center/contain no-repeat;
+    mix-blend-mode: normal;
+    filter: drop-shadow(0 0 5px #00ffcc);
+    transition: all 0.3s ease;
+    }
+
+    .logo-blend::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*background: linear-gradient(45deg, #00ffcc, #00ff40);*/
+    mix-blend-mode: color;
+    opacity: 0.7;
+    z-index: -1;
+    }
+
+    .logo-blend::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    /*border: 1px solid #00ffcc;*/
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    }
+
+    .logo-blend:hover {
+    filter: drop-shadow(0 0 10px #00ffcc) contrast(1.2);
+    transform: scale(1.05);
+    }
+
+    .logo-blend:hover::after {
+    opacity: 0.6;
+    }
+
+    /* Language Toggle */
     .lang-toggle {
     display: flex;
     gap: 1rem;
-    margin-left: auto; /* Push to the far right */
+    margin-left: auto;
     }
 
     .lang-toggle button {
@@ -193,6 +246,9 @@
 
 <!-- Navbar -->
 <nav class="navbar">
+    <div class="logo-container">
+        <div class="logo-blend"></div>
+    </div>
     <h1>AVGVSTO by RoyMerlo & <a href="https://r-px.itch.io/" style="color: #00ff95; text-decoration: none;">Rpx</a></h1>
     <ul>
     <li><a href="#features">Features</a></li>
@@ -278,22 +334,17 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// FAQ Toggle (already defined in previous script)
-</script>
+// Matrix Animation
+const canvas = document.getElementById('matrixCanvas');
+const ctx = canvas.getContext('2d');
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+const letters = '01'.split('');
+const fontSize = 10;
+const columns = canvas.width / fontSize;
+const drops = Array(Math.floor(columns)).fill(1);
 
-<!-- Scripts -->
-<script>
-    // Matrix Animation
-    const canvas = document.getElementById('matrixCanvas');
-    const ctx = canvas.getContext('2d');
-    canvas.height = window.innerHeight;
-    canvas.width = window.innerWidth;
-    const letters = '01'.split('');
-    const fontSize = 10;
-    const columns = canvas.width / fontSize;
-    const drops = Array(Math.floor(columns)).fill(1);
-
-    function draw() {
+function draw() {
     ctx.fillStyle = '#0d0d0d';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = '#00ffcc';
@@ -302,28 +353,28 @@ function scrollToTop() {
         const text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         if (drops[i] * fontSize > canvas.height || Math.random() > 0.975) {
-        drops[i] = 0;
+            drops[i] = 0;
         }
         drops[i]++;
     }
-    }
-    setInterval(draw, 33);
+}
+setInterval(draw, 33);
 
-    // Mouse Aura
-    const aura = document.getElementById('mouseAura');
-    document.addEventListener('mousemove', (e) => {
+// Mouse Aura
+const aura = document.getElementById('mouseAura');
+document.addEventListener('mousemove', (e) => {
     aura.style.left = `${e.clientX}px`;
     aura.style.top = `${e.clientY}px`;
-    });
+});
 
-    // Language Toggle
-    function setLang(lang) {
+// Language Toggle
+function setLang(lang) {
     document.querySelectorAll('[data-en]').forEach(el => {
         el.textContent = el.getAttribute(`data-${lang}`);
     });
     document.getElementById('enBtn').classList.toggle('active', lang === 'en');
     document.getElementById('itBtn').classList.toggle('active', lang === 'it');
-    }
+}
 </script>
 </body>
 </html>
