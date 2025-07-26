@@ -16,7 +16,6 @@
     overflow-x: hidden;
     cursor: none;
     }
-
     /* Matrix Background */
     .matrix {
     position: fixed;
@@ -26,11 +25,9 @@
     background: #0d0d0d;
     overflow: hidden;
     }
-
     .matrix canvas {
     display: block;
     }
-
     /* Mouse Aura */
     .mouse-aura {
     position: fixed;
@@ -43,7 +40,6 @@
     transition: transform 0.1s ease, opacity 0.3s ease;
     z-index: 9999;
     }
-
     /* Navbar */
     .navbar {
     display: flex;
@@ -56,30 +52,25 @@
     top: 0;
     z-index: 1000;
     }
-
     .navbar h1 {
     font-size: 1.5rem;
     color: #00ffcc;
     font-family: 'Orbitron', sans-serif;
     }
-
     .navbar ul {
     list-style: none;
     display: flex;
     gap: 1.5rem;
     margin-left: auto;
     }
-
     .navbar ul li a {
     color: #00ffcc;
     text-decoration: none;
     transition: color 0.3s;
     }
-
     .navbar ul li a:hover {
     color: #00ff40;
     }
-
     /* Logo con effetto blend avanzato */
     .logo-container {
     position: relative;
@@ -87,7 +78,6 @@
     width: 120px;
     margin-right: 1rem;
     }
-
     .logo-blend {
     position: absolute;
     height: 150%;
@@ -97,7 +87,6 @@
     filter: drop-shadow(0 0 5px #00ffcc);
     transition: all 0.3s ease;
     }
-
     .logo-blend::before {
     content: '';
     position: absolute;
@@ -110,7 +99,6 @@
     opacity: 0.7;
     z-index: -1;
     }
-
     .logo-blend::after {
     content: '';
     position: absolute;
@@ -123,23 +111,19 @@
     opacity: 0;
     transition: opacity 0.3s;
     }
-
     .logo-blend:hover {
     filter: drop-shadow(0 0 10px #00ffcc) contrast(1.2);
     transform: scale(1.05);
     }
-
     .logo-blend:hover::after {
     opacity: 0.6;
     }
-
     /* Language Toggle */
     .lang-toggle {
     display: flex;
     gap: 1rem;
     margin-left: auto;
     }
-
     .lang-toggle button {
     background: #333;
     color: #00ffcc;
@@ -148,31 +132,26 @@
     cursor: pointer;
     border-radius: 4px;
     }
-
     .lang-toggle button.active {
     background: #00ffcc;
     color: #000;
     }
-
     /* Hero Section */
     .hero {
     text-align: center;
     padding: 5rem 2rem;
     animation: fadeIn 2s ease-in;
     }
-
     .hero h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
     font-family: 'Orbitron', sans-serif;
     }
-
     .hero p {
     font-size: 1.2rem;
     max-width: 800px;
     margin: auto;
     }
-
     /* Features Section */
     .features {
     display: grid;
@@ -181,37 +160,60 @@
     padding: 4rem 2rem;
     background: #000000c9;
     }
-
     .feature {
     background: #272727b9;
     padding: 2rem;
     border-left: 4px solid #00ffcc;
     transition: transform 0.3s;
+    position: relative;
+    overflow: hidden;
     }
-
     .feature:hover {
     transform: scale(1.05);
     background: #222;
     }
-
+    .feature::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.4), transparent);
+    transition: 0.5s;
+    }
+    .feature:hover::before {
+    left: 100%;
+    }
     /* Use Cases Section */
     .use-cases {
     padding: 4rem 2rem;
     background: #000000bd;
     }
-
     .use-cases h3 {
     text-align: center;
     margin-bottom: 2rem;
     }
-
     .case {
     background: #303030c2;
     padding: 1.5rem;
     margin-bottom: 1rem;
     border-left: 4px solid #14ff7e;
+    position: relative;
     }
-
+    .case::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(0, 255, 204, 0.1);
+    transition: width 0.5s ease;
+    }
+    .case:hover::after {
+    width: 100%;
+    }
     /* Download Button */
     .download-btn {
     display: inline-block;
@@ -223,15 +225,87 @@
     font-weight: bold;
     border-radius: 5px;
     transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
     }
-
     .download-btn:hover {
     background: #00ff15;
     }
-
+    .download-btn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    }
+    .download-btn:hover::before {
+    width: 300px;
+    height: 300px;
+    }
+    /* Animazioni Epiche */
+    .encryption-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+    display: none;
+    }
+    .encryption-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #00ffcc;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ffcc;
+    }
+    .lock-animation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    color: #00ffcc;
+    opacity: 0;
+    z-index: 9999;
+    pointer-events: none;
+    }
+    .data-stream {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9997;
+    display: none;
+    }
+    .data-stream-line {
+    position: absolute;
+    height: 2px;
+    background: rgba(0, 255, 204, 0.6);
+    width: 0;
+    }
     @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+    }
+    @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+    }
+    @keyframes lockPulse {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
     }
 </style>
 </head>
@@ -240,10 +314,12 @@
 <div class="matrix">
     <canvas id="matrixCanvas"></canvas>
 </div>
-
 <!-- Mouse Aura -->
 <div class="mouse-aura" id="mouseAura"></div>
-
+<!-- Animazioni Epiche -->
+<div class="encryption-animation" id="encryptionAnimation"></div>
+<div class="lock-animation" id="lockAnimation">🔒</div>
+<div class="data-stream" id="dataStream"></div>
 <!-- Navbar -->
 <nav class="navbar">
     <div class="logo-container">
@@ -260,29 +336,26 @@
     <button onclick="setLang('it')" id="itBtn">IT</button>
     </div>
 </nav>
-
 <!-- Hero Section -->
 <section class="hero">
     <h1 data-en="AVGVSTO: Cybersecurity Reinvented" data-it="AVGVSTO: Sicurezza Informatica Rinnovata">AVGVSTO: Cybersecurity Reinvented</h1>
     <p data-en="Advanced encryption suite combining hardware-bound security, AES-256, and brute-force protection. Your data stays safe, always." data-it="Suite di crittografia avanzata con protezione hardware, AES-256 e protezione da attacchi brute-force. I tuoi dati sono al sicuro, sempre.">Advanced encryption suite combining hardware-bound security, AES-256, and brute-force protection. Your data stays safe, always.</p>
 </section>
-
 <!-- Features Section -->
 <section id="features" class="features">
-    <div class="feature">
+    <div class="feature" onclick="triggerEncryptionAnimation()">
     <h4 data-en="Hardware-Bound Encryption" data-it="Crittografia Legata all'Hardware">Hardware-Bound Encryption</h4>
     <p data-en="Files decrypt only when the authorized USB drive is connected. Even if stolen, data remains inaccessible." data-it="I file si decriptano solo con la chiavetta USB autorizzata. Anche se rubati, i dati restano inaccessibili.">Files decrypt only when the authorized USB drive is connected. Even if stolen, data remains inaccessible.</p>
     </div>
-    <div class="feature">
+    <div class="feature" onclick="triggerDataStream()">
     <h4 data-en="AES-256 with PBKDF2" data-it="AES-256 con PBKDF2">AES-256 with PBKDF2</h4>
     <p data-en="Military-grade encryption with 1M iterations for password-to-key conversion. Brute-force attacks become impossible." data-it="Crittografia militare con 1 milione di iterazioni per la conversione password-chiave. Gli attacchi brute-force diventano impossibili.">Military-grade encryption with 1M iterations for password-to-key conversion. Brute-force attacks become impossible.</p>
     </div>
-    <div class="feature">
+    <div class="feature" onclick="triggerLockAnimation()">
     <h4 data-en="Brute-Force Protection" data-it="Protezione da Forza Bruta">Brute-Force Protection</h4>
     <p data-en="3 failed attempts = automatic deletion of encrypted files. No backdoors, no vulnerabilities." data-it="3 tentativi falliti = eliminazione automatica dei file. Nessun backdoor, nessuna vulnerabilità.">3 failed attempts = automatic deletion of encrypted files. No backdoors, no vulnerabilities.</p>
     </div>
 </section>
-
 <!-- Use Cases Section -->
 <section id="use-cases" class="use-cases">
     <h3 data-en="Who Can Use AVGVSTO?" data-it="Chi Può Usare AVGVSTO?">Who Can Use AVGVSTO?</h3>
@@ -299,7 +372,6 @@
     <p data-en="Protect personal photos, videos, and files from unauthorized access at home." data-it="Proteggi foto, video e file personali da accessi non autorizzati a casa tua.">Protect personal photos, videos, and files from unauthorized access at home.</p>
     </div>
 </section>
-
 <!-- Download Section -->
 <section id="download" style="text-align:center; padding:4rem 2rem;">
     <h3 data-en="Download AVGVSTO" data-it="Scarica AVGVSTO">Download AVGVSTO</h3>
@@ -316,7 +388,6 @@
 <footer style="background: #0d0d0d; padding: 4rem 2rem; border-top: 2px solid #00ffcc;">
 <div style="max-width: 1200px; margin: auto;">
     <center><h3 data-en="Legal & Copyright" data-it="Legale & Copyright">_____________________</h3></center>
-    
     <!-- Contact & Credits -->
     <div class="legal-section" style="margin-top: 2rem; text-align: center;">
     <p data-en="For legal inquiries or collaborations, contact us on GitHub." data-it="Per richieste legali o collaborazioni, contattaci su GitHub.">For legal inquiries or collaborations, contact us on <a href="https://github.com/RoyMerlo/AVGVSTO" style="color: #00bbff;">GitHub.</a></p>
@@ -324,16 +395,13 @@
     </div>
 </div>
 </footer>
-
 <!-- Scroll to Top Button -->
 <button onclick="scrollToTop()" style="position: fixed; bottom: 20px; right: 20px; background: #00ffcc; color: #000; border: none; padding: 1rem; border-radius: 5px; cursor: pointer; z-index: 9999;">↑</button>
-
 <script>
 // Scroll to Top Function
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
 // Matrix Animation
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
@@ -343,7 +411,6 @@ const letters = '01'.split('');
 const fontSize = 10;
 const columns = canvas.width / fontSize;
 const drops = Array(Math.floor(columns)).fill(1);
-
 function draw() {
     ctx.fillStyle = '#0d0d0d';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -359,14 +426,12 @@ function draw() {
     }
 }
 setInterval(draw, 33);
-
 // Mouse Aura
 const aura = document.getElementById('mouseAura');
 document.addEventListener('mousemove', (e) => {
     aura.style.left = `${e.clientX}px`;
     aura.style.top = `${e.clientY}px`;
 });
-
 // Language Toggle
 function setLang(lang) {
     document.querySelectorAll('[data-en]').forEach(el => {
@@ -375,6 +440,956 @@ function setLang(lang) {
     document.getElementById('enBtn').classList.toggle('active', lang === 'en');
     document.getElementById('itBtn').classList.toggle('active', lang === 'it');
 }
+// Animazioni Epiche
+function triggerEncryptionAnimation() {
+    const animationContainer = document.getElementById('encryptionAnimation');
+    animationContainer.style.display = 'block';
+    animationContainer.innerHTML = '';
+    
+    for (let i = 0; i < 100; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'encryption-particle';
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        particle.style.animation = `pulse ${0.5 + Math.random() * 2}s infinite`;
+        animationContainer.appendChild(particle);
+    }
+    
+    setTimeout(() => {
+        animationContainer.style.display = 'none';
+    }, 3000);
+}
+function triggerLockAnimation() {
+    const lock = document.getElementById('lockAnimation');
+    lock.style.animation = 'lockPulse 2s forwards';
+    
+    setTimeout(() => {
+        lock.style.animation = '';
+    }, 2000);
+}
+function triggerDataStream() {
+    const streamContainer = document.getElementById('dataStream');
+    streamContainer.style.display = 'block';
+    streamContainer.innerHTML = '';
+    
+    for (let i = 0; i < 20; i++) {
+        const line = document.createElement('div');
+        line.className = 'data-stream-line';
+        line.style.top = `${Math.random() * 100}%`;
+        line.style.left = `${Math.random() * 100}%`;
+        line.style.width = `${20 + Math.random() * 80}%`;
+        line.style.animation = `pulse ${1 + Math.random() * 3}s infinite`;
+        streamContainer.appendChild(line);
+    }
+    
+    setTimeout(() => {
+        streamContainer.style.display = 'none';
+    }, 3000);
+}
 </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVGVSTO - Simulated Desktop</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base & Matrix Background (from website) --- */
+        :root {
+            --primary-color: #00ffcc;
+            --primary-hover: #00ff40;
+            --secondary-color: #14ff7e;
+            --dark-bg: #000000;
+            --panel-bg: #0d0d0d;
+            --item-bg: #272727b9;
+            --text-color: var(--primary-color);
+            --border-color: var(--primary-color);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor from website */
+            margin: 0;
+            padding: 0;
+        }
+        /* Matrix Background */
+        .matrix {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            background: #0d0d0d;
+            overflow: hidden;
+        }
+        .matrix canvas {
+            display: block;
+        }
+        /* Mouse Aura */
+        .mouse-aura {
+            position: fixed;
+            top: 0; left: 0;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #00ffcc88 0%, transparent 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, opacity 0.3s ease;
+            z-index: 9999;
+        }
+        /* --- App Container --- */
+        .app-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: var(--panel-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+            position: relative; /* For z-index */
+            z-index: 10; /* Above matrix */
+        }
+        /* --- Header --- */
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .title {
+            font-family: 'Orbitron', sans-serif; /* From website */
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px var(--primary-color); /* Subtle glow */
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #aaaaaa; /* Slightly different from website but fits */
+            margin-bottom: 15px;
+        }
+        /* --- Logo Container (Updated to match website style) --- */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .logo-blend {
+            position: relative;
+            height: 30px;
+            width: 60px;
+            background: url('https://i.postimg.cc/cJC4CcR0/logor.png') center/contain no-repeat;
+            filter: drop-shadow(0 0 2px var(--primary-color));
+            transition: all 0.3s ease;
+        }
+        .logo-blend:hover {
+            filter: drop-shadow(0 0 8px var(--primary-color)) contrast(1.2);
+            transform: scale(1.1);
+        }
+        .logo-blend-rpx {
+            position: relative;
+            height: 30px;
+            width: 60px;
+            background: url('https://i.postimg.cc/vTM6qPCG/rpx-mon.png') center/contain no-repeat;
+            filter: drop-shadow(0 0 2px var(--primary-color));
+            transition: all 0.3s ease;
+        }
+        .logo-blend-rpx:hover {
+            filter: drop-shadow(0 0 8px var(--primary-color)) contrast(1.2);
+            transform: scale(1.1);
+        }
+        .logo-text {
+            font-size: 12px;
+            color: #aaaaaa;
+        }
+        /* --- Main Content Layout --- */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* --- Desktop Area --- */
+        .desktop-area {
+            background-color: var(--item-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 15px;
+            min-height: 500px;
+        }
+        .desktop-title {
+            font-family: 'Orbitron', sans-serif; /* Consistent title font */
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+        }
+        .desktop-title::before {
+            content: "🖥️";
+            margin-right: 10px;
+        }
+        /* --- File Items --- */
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            margin: 5px 0;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .file-item:hover {
+            background-color: rgba(0, 255, 204, 0.1);
+            transform: translateX(5px);
+        }
+        .file-item.selected {
+            background-color: rgba(0, 255, 204, 0.2);
+            outline: 1px solid var(--border-color);
+        }
+        .file-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.4), transparent);
+            transition: 0.5s;
+        }
+        .file-item:hover::before {
+            left: 100%;
+        }
+        .file-icon {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .file-name {
+            flex-grow: 1;
+            font-size: 14px;
+            word-break: break-all;
+        }
+        /* --- Controls Panel --- */
+        .controls-panel {
+            background-color: var(--item-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .panel-section {
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 15px;
+        }
+        .panel-section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .panel-title {
+            font-family: 'Orbitron', sans-serif; /* Consistent title font */
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .panel-title::after {
+            content: "▼";
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+        .panel-title.collapsed::after {
+            transform: rotate(-90deg);
+        }
+        /* --- USB Selector & Buttons --- */
+        .usb-selector {
+            width: 100%;
+            padding: 8px;
+            background-color: #111;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .btn {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            width: 100%;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:last-child {
+            margin-bottom: 0;
+        }
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 8px var(--primary-color);
+            border-color: var(--primary-hover);
+        }
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: transparent;
+            color: #666666;
+            border-color: #666666;
+            box-shadow: none;
+        }
+        /* --- Status Bar --- */
+        .status-bar {
+            background-color: var(--item-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin-top: 20px;
+            min-height: 20px;
+        }
+        .status-message {
+            font-size: 14px;
+            word-break: break-word;
+        }
+        .status-message.info { color: var(--primary-color); }
+        .status-message.success { color: #00cc66; text-shadow: 0 0 3px #00cc6644; }
+        .status-message.error { color: #cc3300; text-shadow: 0 0 3px #cc330044; }
+        .status-message.warning { color: #ffcc00; text-shadow: 0 0 3px #ffcc0044; }
+        /* --- Instructions Section --- */
+        .instructions-content {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #aaaaaa;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+        }
+        .instructions-content ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        .instructions-content li {
+            margin-bottom: 8px;
+        }
+        .instructions-content strong {
+            color: var(--secondary-color);
+        }
+        /* --- Modal --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .modal-content {
+            background-color: var(--panel-bg);
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 15px var(--border-color);
+            border: 1px solid var(--border-color);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            color: var(--text-color);
+            margin: 0;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            color: #aaaaaa;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .close-modal:hover {
+            color: var(--text-color);
+        }
+        .modal-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #111;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .modal-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s;
+        }
+        .modal-btn-confirm {
+            background-color: var(--primary-color);
+            color: #000;
+        }
+        .modal-btn-confirm:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 0 8px var(--primary-color);
+        }
+        .modal-btn-cancel {
+            background-color: #666666;
+            color: #fff;
+        }
+        .modal-btn-cancel:hover {
+            background-color: #888888;
+        }
+        /* --- Encryption Progress Bar --- */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background-color: #111;
+            border-radius: 5px;
+            margin-top: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Background -->
+    <div class="matrix">
+        <canvas id="matrixCanvas2"></canvas>
+    </div>
+    <!-- Mouse Aura -->
+    <div class="mouse-aura" id="mouseAura2"></div>
+    <div class="app-container">
+        <div class="header">
+            <div class="title">AVGVSTO</div>
+            <div class="subtitle">Version 1.0 - Simulated Desktop Environment</div>
+            <div class="logo-container">
+                <div class="logo-blend"></div>
+                <span class="logo-text">- Powered By Roy Merlo</span>
+                <div class="logo-blend-rpx"></div>
+                <span class="logo-text">- Powered By RPX</span>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="desktop-area">
+                <h2 class="desktop-title">Desktop</h2>
+                <div id="file-list">
+                    <!-- File items will be populated here by JS -->
+                </div>
+            </div>
+            <div class="controls-panel">
+                <div class="panel-section">
+                    <h3 class="panel-title">USB Security</h3>
+                    <div>
+                        <select id="usb-selector" class="usb-selector">
+                            <option value="">Select USB drive...</option>
+                            <option value="USB_KEY_1">USB_KEY_1</option>
+                            <option value="USB_KEY_2">USB_KEY_2</option>
+                        </select>
+                        <button id="set-usb-btn" class="btn">
+                            <span>🔧</span> Set Secure USB Drive
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <h3 class="panel-title">Actions</h3>
+                    <div>
+                        <button id="encrypt-btn" class="btn" disabled>
+                            <span>🔐</span> Encrypt Selected
+                        </button>
+                        <button id="decrypt-btn" class="btn" disabled>
+                            <span>🔓</span> Decrypt Selected
+                        </button>
+                        <div class="progress-container" id="progress-container">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-section">
+                    <h3 id="instructions-toggle" class="panel-title collapsed">Instructions</h3>
+                    <div id="instructions-content" class="instructions-content" style="display: none;">
+                        <p><strong>How to use AVGVSTO Simulator:</strong></p>
+                        <ul>
+                            <li><strong>Select USB:</strong> Choose a USB key from the dropdown and click "Set Secure USB Drive".</li>
+                            <li><strong>Select File:</strong> Click on a file in the Desktop area to select it.</li>
+                            <li><strong>Encrypt:</strong> With a file selected and USB set, click "Encrypt Selected". Enter a password. The file will be marked as encrypted (.avgvsto).</li>
+                            <li><strong>Decrypt:</strong> Select an encrypted file (.avgvsto) and click "Decrypt Selected". You <strong>must</strong> use the <strong>same password</strong> that was used to encrypt it, along with the same USB key.</li>
+                            <li><strong>Security Rule:</strong> A file encrypted with USB_KEY_1 can only be decrypted with USB_KEY_1. Same for USB_KEY_2.</li>
+                            <li><strong>Note:</strong> This is a simulation. Files are not actually modified on your computer.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="status-bar">
+            <div id="status-message" class="status-message info">Ready. Select a file and configure USB.</div>
+        </div>
+    </div>
+    <!-- Password Modal -->
+    <div id="password-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Enter Password</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <input type="password" id="password-input" class="modal-input" placeholder="Password">
+            <div class="modal-buttons">
+                <button id="confirm-password-btn" class="modal-btn modal-btn-confirm">Confirm</button>
+                <button id="cancel-password-btn" class="modal-btn modal-btn-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // --- Configuration & State ---
+        const USB_IDS = {
+            "USB_KEY_1": "usb_id_sim_1_hash_abc123",
+            "USB_KEY_2": "usb_id_sim_2_hash_def456"
+        };
+        // Simulated File System
+        let fileSystem = [
+            { id: 'f1', name: 'document.txt', type: 'file', isEncrypted: false, usbId: null, passwordHash: null },
+            { id: 'f2', name: 'image.jpg', type: 'file', isEncrypted: false, usbId: null, passwordHash: null },
+            { id: 'f3', name: 'report.pdf', type: 'file', isEncrypted: false, usbId: null, passwordHash: null },
+            { id: 'f4', name: 'secret_data.avgvsto', type: 'file', isEncrypted: true, usbId: "usb_id_sim_1_hash_abc123", passwordHash: "sim_hash_secret_usb1" }, // Pre-encrypted with USB1 and password "secret"
+            {
+                id: 'folder1', name: 'MyFolder', type: 'folder', contents: [
+                    { id: 'f5', name: 'note.txt', type: 'file', isEncrypted: false, usbId: null, passwordHash: null },
+                    { id: 'f6', name: 'archive.zip', type: 'file', isEncrypted: false, usbId: null, passwordHash: null }
+                ]
+            }
+        ];
+        let selectedFileId = null;
+        let config = {
+            secureUsbId: null,
+            secureUsbName: null
+        };
+        let currentAction = null;
+        let currentPassword = null;
+        // --- DOM Elements ---
+        const fileListEl = document.getElementById('file-list');
+        const usbSelector = document.getElementById('usb-selector');
+        const setUsbBtn = document.getElementById('set-usb-btn');
+        const encryptBtn = document.getElementById('encrypt-btn');
+        const decryptBtn = document.getElementById('decrypt-btn');
+        const statusMessageEl = document.getElementById('status-message');
+        const passwordModal = document.getElementById('password-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const passwordInput = document.getElementById('password-input');
+        const confirmPasswordBtn = document.getElementById('confirm-password-btn');
+        const cancelPasswordBtn = document.getElementById('cancel-password-btn');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const instructionsToggle = document.getElementById('instructions-toggle');
+        const instructionsContent = document.getElementById('instructions-content');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initWebsiteEffects(); // Initialize Matrix and Mouse Aura
+            loadConfig();
+            renderFileSystem();
+            updateUI();
+            setupEventListeners();
+        });
+        // --- Website Effects (Matrix, Mouse) ---
+        function initWebsiteEffects() {
+            // Matrix Animation
+            const canvas = document.getElementById('matrixCanvas2');
+            const ctx = canvas.getContext('2d');
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+            const letters = '01'.split('');
+            const fontSize = 10;
+            const columns = canvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+            function draw() {
+                ctx.fillStyle = 'rgba(13, 13, 13, 0.05)'; // Semi-transparent black
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#00ffcc';
+                ctx.font = fontSize + 'px monospace';
+                for (let i = 0; i < drops.length; i++) {
+                    const text = letters[Math.floor(Math.random() * letters.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height || Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            setInterval(draw, 33);
+            // Mouse Aura
+            const aura = document.getElementById('mouseAura2');
+            document.addEventListener('mousemove', (e) => {
+                aura.style.left = `${e.clientX}px`;
+                aura.style.top = `${e.clientY}px`;
+            });
+            // Handle window resize for canvas
+            window.addEventListener('resize', () => {
+                 canvas.height = window.innerHeight;
+                 canvas.width = window.innerWidth;
+            });
+        }
+        // --- Event Listeners ---
+        function setupEventListeners() {
+            setUsbBtn.addEventListener('click', setSecureUsb);
+            encryptBtn.addEventListener('click', () => initiateAction('encrypt'));
+            decryptBtn.addEventListener('click', () => initiateAction('decrypt'));
+            confirmPasswordBtn.addEventListener('click', confirmPassword);
+            cancelPasswordBtn.addEventListener('click', closeModal);
+            closeModalBtn.addEventListener('click', closeModal);
+            // Instructions toggle
+            instructionsToggle.addEventListener('click', () => {
+                const isCollapsed = instructionsContent.style.display === 'none';
+                instructionsContent.style.display = isCollapsed ? 'block' : 'none';
+                instructionsToggle.classList.toggle('collapsed', !isCollapsed);
+            });
+        }
+        // --- Core Logic ---
+        function loadConfig() {
+            const stored = localStorage.getItem('avgvsto_sim_config_no_attempts_v2');
+            if (stored) {
+                try {
+                    config = JSON.parse(stored);
+                } catch (e) {
+                    console.error("Error loading config:", e);
+                }
+            }
+        }
+        function saveConfig() {
+            localStorage.setItem('avgvsto_sim_config_no_attempts_v2', JSON.stringify(config));
+        }
+        function updateStatus(message, type = "info") {
+            statusMessageEl.textContent = message;
+            statusMessageEl.className = "status-message " + type;
+        }
+        function setSecureUsb() {
+            const selectedUsbName = usbSelector.value;
+            if (!selectedUsbName) {
+                updateStatus("Please select a USB drive.", "error");
+                return;
+            }
+            config.secureUsbName = selectedUsbName;
+            config.secureUsbId = USB_IDS[selectedUsbName];
+            saveConfig();
+            updateStatus(`✅ Secure USB drive set to ${selectedUsbName}`, "success");
+            updateUI();
+        }
+        // --- Simulated Crypto Helpers ---
+        function simulateHashPasswordAndUsb(password, usbId) {
+             const encoder = new TextEncoder();
+             const data = encoder.encode(password + usbId);
+             let hash = 0;
+             for (let i = 0; i < data.length; i++) {
+                 const char = data[i];
+                 hash = ((hash << 5) - hash) + char;
+                 hash = hash & hash;
+             }
+             return "sim_hash_" + btoa(password).replace(/=/g, '');
+        }
+        function initiateAction(action) {
+            if (!selectedFileId) {
+                updateStatus("Please select a file or folder first.", "warning");
+                return;
+            }
+            if (action === 'decrypt' && !config.secureUsbId) {
+                updateStatus("Set a secure USB drive first.", "error");
+                return;
+            }
+            currentAction = action;
+            modalTitle.textContent = action === 'encrypt' ? "🔐 Enter Encryption Password" : "🔓 Enter Decryption Password";
+            passwordInput.value = '';
+            passwordModal.style.display = 'block';
+            passwordInput.focus();
+        }
+        function closeModal() {
+            passwordModal.style.display = 'none';
+        }
+        function confirmPassword() {
+            currentPassword = passwordInput.value;
+            if (!currentPassword) {
+                alert("Password is required.");
+                return;
+            }
+            closeModal();
+            if (currentAction === 'encrypt') {
+                performEncryption();
+            } else if (currentAction === 'decrypt') {
+                performDecryption();
+            }
+        }
+        function simulateEncryptionProgress() {
+            progressContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        progressContainer.style.display = 'none';
+                    }, 500);
+                }
+                progressBar.style.width = `${progress}%`;
+            }, 100);
+        }
+        function performEncryption() {
+            if (!config.secureUsbId) {
+                updateStatus("No secure USB configured for encryption.", "error");
+                return;
+            }
+            const fileObj = findFileById(selectedFileId);
+            if (!fileObj) {
+                updateStatus("Selected file not found.", "error");
+                return;
+            }
+            if (fileObj.isEncrypted) {
+                updateStatus("Cannot encrypt an already encrypted file.", "warning");
+                return;
+            }
+            
+            // Simulate encryption progress
+            simulateEncryptionProgress();
+            
+            setTimeout(() => {
+                const target = findFileOrFolderRef(selectedFileId);
+                if (target && typeof target === 'object' && target.type === 'file') {
+                    target.isEncrypted = true;
+                    target.usbId = config.secureUsbId;
+                    target.passwordHash = simulateHashPasswordAndUsb(currentPassword, config.secureUsbId);
+                    target.name += '.avgvsto';
+                    saveFileSystem();
+                    renderFileSystem();
+                    updateStatus(`✅ File '${target.name.replace('.avgvsto', '')}' encrypted.`, "success");
+                    clearSelection();
+                } else {
+                    updateStatus("Encryption failed (sim error).", "error");
+                }
+            }, 3000);
+        }
+        function performDecryption() {
+            const fileObj = findFileById(selectedFileId);
+            if (!fileObj) {
+                updateStatus("Selected file not found.", "error");
+                return;
+            }
+            if (!fileObj.isEncrypted) {
+                updateStatus("Cannot decrypt a non-encrypted file.", "warning");
+                return;
+            }
+            // 1. Check USB ID
+            if (fileObj.usbId !== config.secureUsbId) {
+                updateStatus(`❌ Wrong USB drive. Need ${fileObj.usbId === USB_IDS["USB_KEY_1"] ? "USB_KEY_1" : "USB_KEY_2"} to decrypt this file.`, "error");
+                return;
+            }
+            // 2. Check Password Hash
+            const enteredPasswordHash = simulateHashPasswordAndUsb(currentPassword, config.secureUsbId);
+            if (enteredPasswordHash !== fileObj.passwordHash) {
+                 if (fileObj.id === 'f4' && currentPassword === 'secret' && config.secureUsbId === USB_IDS["USB_KEY_1"]) {
+                     // Allow pre-encrypted file with known password for demo
+                 } else {
+                     updateStatus(`❌ Incorrect password for this file.`, "error");
+                     return;
+                 }
+            }
+            
+            // Simulate decryption progress
+            simulateEncryptionProgress();
+            
+            setTimeout(() => {
+                // 3. Simulate decryption
+                const target = findFileOrFolderRef(selectedFileId);
+                if (target && typeof target === 'object' && target.type === 'file' && target.isEncrypted) {
+                    target.isEncrypted = false;
+                    target.usbId = null;
+                    target.passwordHash = null;
+                    target.name = target.name.replace(/\.avgvsto$/, '');
+                    saveConfig();
+                    saveFileSystem();
+                    renderFileSystem();
+                    updateStatus(`✅ File '${target.name}' decrypted successfully.`, "success");
+                    clearSelection();
+                } else {
+                    updateStatus("Decryption failed (sim error).", "error");
+                }
+            }, 3000);
+        }
+        // --- File System Simulation ---
+        function saveFileSystem() {
+            localStorage.setItem('avgvsto_sim_filesystem_no_attempts_v2', JSON.stringify(fileSystem));
+        }
+        function loadFileSystem() {
+            const stored = localStorage.getItem('avgvsto_sim_filesystem_no_attempts_v2');
+            if (stored) {
+                try {
+                    fileSystem = JSON.parse(stored);
+                } catch (e) {
+                    console.error("Error loading filesystem:", e);
+                }
+            }
+        }
+        function findFileById(id, items = fileSystem, path = []) {
+            for (const item of items) {
+                const currentPath = [...path, item.id];
+                if (item.id === id) {
+                    return { ...item, path: currentPath };
+                }
+                if (item.type === 'folder' && item.contents) {
+                    const found = findFileById(id, item.contents, currentPath);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+        function findFileOrFolderRef(id, items = fileSystem) {
+             for (const item of items) {
+                 if (item.id === id) {
+                     return item;
+                 }
+                 if (item.type === 'folder' && item.contents) {
+                     const found = findFileOrFolderRef(id, item.contents);
+                     if (found) return found;
+                 }
+             }
+             return null;
+         }
+        function renderFileSystem(items = fileSystem, container = fileListEl, depth = 0) {
+             container.innerHTML = '';
+             items.forEach(item => {
+                 const itemEl = document.createElement('div');
+                 itemEl.className = 'file-item';
+                 itemEl.dataset.id = item.id;
+                 itemEl.style.paddingLeft = `${10 + depth * 20}px`;
+                 let icon = '📄';
+                 let color = '#f5a623'; // File color
+                 if (item.type === 'folder') {
+                     icon = '📁';
+                     color = '#7ed321'; // Folder color
+                 } else if (item.isEncrypted) {
+                     icon = '🔒';
+                     color = '#bd10e0'; // Encrypted color
+                 }
+                 itemEl.innerHTML = `
+                     <span class="file-icon" style="color: ${color};">${icon}</span>
+                     <span class="file-name">${item.name}</span>
+                 `;
+                 if (item.id === selectedFileId) {
+                     itemEl.classList.add('selected');
+                 }
+                 itemEl.addEventListener('click', (e) => {
+                     e.stopPropagation();
+                     selectFile(item.id);
+                 });
+                 container.appendChild(itemEl);
+                 if (item.type === 'folder' && item.contents) {
+                     const subContainer = document.createElement('div');
+                     renderFileSystem(item.contents, subContainer, depth + 1);
+                     container.appendChild(subContainer);
+                 }
+             });
+         }
+        function selectFile(id) {
+            selectedFileId = id;
+            document.querySelectorAll('.file-item').forEach(el => el.classList.remove('selected'));
+            document.querySelector(`.file-item[data-id="${id}"]`).classList.add('selected');
+            updateUI();
+        }
+        function clearSelection() {
+            selectedFileId = null;
+            document.querySelectorAll('.file-item').forEach(el => el.classList.remove('selected'));
+            updateUI();
+        }
+        function updateUI() {
+            const fileObj = selectedFileId ? findFileById(selectedFileId) : null;
+            encryptBtn.disabled = !selectedFileId || (fileObj && fileObj.isEncrypted);
+            decryptBtn.disabled = !selectedFileId || (fileObj && !fileObj.isEncrypted) || !config.secureUsbId;
+            if (!selectedFileId) {
+                updateStatus("Select a file or folder.", "info");
+            } else if (fileObj) {
+                if (fileObj.isEncrypted) {
+                    updateStatus(`Selected: ${fileObj.name} (Encrypted)`, "info");
+                } else {
+                    updateStatus(`Selected: ${fileObj.name}`, "info");
+                }
+            }
+        }
+    </script>
 </body>
 </html>
