@@ -82,7 +82,7 @@
     position: absolute;
     height: 150%;
     width: 150%;
-    background: url('https://imghoster.co/ib/KvoYrKY6mvPLcos_1773096803.gif') center/contain no-repeat;
+    background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-photo%2Fmoody-wallpaper-with-dark-base-vivid-neon-lines-geometric-shapes_879736-67758.jpg&f=1&ipt=c32bbc0c09289bb6db3fed949de5f5bd314db3ae222712394e9ad207b6bcfa99&ipo=imagesf') center/contain no-repeat;
     mix-blend-mode: normal;
     filter: drop-shadow(0 0 5px #00ffcc);
     transition: all 0.3s ease;
@@ -293,6 +293,32 @@
     background: rgba(0, 255, 204, 0.6);
     width: 0;
     }
+    /* Hero BG GIF */
+    .hero-bg-gif {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px);
+    z-index: 0;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.05s linear;
+    }
+    .hero-bg-gif img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    }
+    .hero, .features, .use-cases, #download, footer, center {
+    position: relative;
+    z-index: 1;
+    }
     @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -336,6 +362,11 @@
     <button onclick="setLang('it')" id="itBtn">IT</button>
     </div>
 </nav>
+<!-- Hero BG GIF -->
+<div class="hero-bg-gif" id="heroBgGif">
+    <img src="https://i.ibb.co/HD3zstd5/avg1.gif" alt="">
+</div>
+
 <!-- Hero Section -->
 <section class="hero">
     <h1 data-en="AVGVSTO: Cybersecurity Reinvented" data-it="AVGVSTO: Sicurezza Informatica Rinnovata">AVGVSTO: Cybersecurity Reinvented</h1>
@@ -406,6 +437,15 @@
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+// Hero BG GIF fade on scroll
+const heroBgGif = document.getElementById('heroBgGif');
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const fadeStart = 0;
+    const fadeEnd = 350;
+    const opacity = Math.max(0, 1 - (scrolled - fadeStart) / (fadeEnd - fadeStart));
+    heroBgGif.style.opacity = opacity;
+});
 // Matrix Animation
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
@@ -592,8 +632,8 @@ function triggerDataStream() {
         }
         .logo-blend {
             position: relative;
-            height: 30px;
-            width: 60px;
+            height: 160%;
+            width: 160%;
             background: url('https://i.postimg.cc/cJC4CcR0/logor.png') center/contain no-repeat;
             filter: drop-shadow(0 0 2px var(--primary-color));
             transition: all 0.3s ease;
@@ -1397,4 +1437,3 @@ function triggerDataStream() {
     </script>
 </body>
 </html>
-
