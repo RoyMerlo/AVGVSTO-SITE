@@ -1,1439 +1,1072 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="AVGVSTO - Advanced Security Suite with Hardware-Bound Encryption and AES-256 Protection">
-<title>AVGVSTO | Cybersecurity Reinvented</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet"/>
-<style>
-    /* Dark Mode & Animazioni */
-    body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background: #000000; 
-    color: #00ffcc;
-    overflow-x: hidden;
-    cursor: none;
-    }
-    /* Matrix Background */
-    .matrix {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: -1;
-    background: #0d0d0d;
-    overflow: hidden;
-    }
-    .matrix canvas {
-    display: block;
-    }
-    /* Mouse Aura */
-    .mouse-aura {
-    position: fixed;
-    top: 0; left: 0;
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #00ffcc88 0%, transparent 70%);
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease, opacity 0.3s ease;
-    z-index: 9999;
-    }
-    /* Navbar */
-    .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: #111111c1;
-    border-bottom: 2px solid #00ffcc;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    }
-    .navbar h1 {
-    font-size: 1.5rem;
-    color: #00ffcc;
-    font-family: 'Orbitron', sans-serif;
-    }
-    .navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin-left: auto;
-    }
-    .navbar ul li a {
-    color: #00ffcc;
-    text-decoration: none;
-    transition: color 0.3s;
-    }
-    .navbar ul li a:hover {
-    color: #00ff40;
-    }
-    /* Logo con effetto blend avanzato */
-    .logo-container {
-    position: relative;
-    height: 40px;
-    width: 120px;
-    margin-right: 1rem;
-    }
-    .logo-blend {
-    position: absolute;
-    height: 150%;
-    width: 150%;
-    background: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.freepik.com%2Fpremium-photo%2Fmoody-wallpaper-with-dark-base-vivid-neon-lines-geometric-shapes_879736-67758.jpg&f=1&ipt=c32bbc0c09289bb6db3fed949de5f5bd314db3ae222712394e9ad207b6bcfa99&ipo=imagesf') center/contain no-repeat;
-    mix-blend-mode: normal;
-    filter: drop-shadow(0 0 5px #00ffcc);
-    transition: all 0.3s ease;
-    }
-    .logo-blend::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /*background: linear-gradient(45deg, #00ffcc, #00ff40);*/
-    mix-blend-mode: color;
-    opacity: 0.7;
-    z-index: -1;
-    }
-    .logo-blend::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    /*border: 1px solid #00ffcc;*/
-    border-radius: 3px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    }
-    .logo-blend:hover {
-    filter: drop-shadow(0 0 10px #00ffcc) contrast(1.2);
-    transform: scale(1.05);
-    }
-    .logo-blend:hover::after {
-    opacity: 0.6;
-    }
-    /* Language Toggle */
-    .lang-toggle {
-    display: flex;
-    gap: 1rem;
-    margin-left: auto;
-    }
-    .lang-toggle button {
-    background: #333;
-    color: #00ffcc;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    }
-    .lang-toggle button.active {
-    background: #00ffcc;
-    color: #000;
-    }
-    /* Hero Section */
-    .hero {
-    text-align: center;
-    padding: 5rem 2rem;
-    animation: fadeIn 2s ease-in;
-    }
-    .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-family: 'Orbitron', sans-serif;
-    }
-    .hero p {
-    font-size: 1.2rem;
-    max-width: 800px;
-    margin: auto;
-    }
-    /* Features Section */
-    .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    padding: 4rem 2rem;
-    background: #000000c9;
-    }
-    .feature {
-    background: #272727b9;
-    padding: 2rem;
-    border-left: 4px solid #00ffcc;
-    transition: transform 0.3s;
-    position: relative;
-    overflow: hidden;
-    }
-    .feature:hover {
-    transform: scale(1.05);
-    background: #222;
-    }
-    .feature::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.4), transparent);
-    transition: 0.5s;
-    }
-    .feature:hover::before {
-    left: 100%;
-    }
-    /* Use Cases Section */
-    .use-cases {
-    padding: 4rem 2rem;
-    background: #000000bd;
-    }
-    .use-cases h3 {
-    text-align: center;
-    margin-bottom: 2rem;
-    }
-    .case {
-    background: #303030c2;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border-left: 4px solid #14ff7e;
-    position: relative;
-    }
-    .case::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background: rgba(0, 255, 204, 0.1);
-    transition: width 0.5s ease;
-    }
-    .case:hover::after {
-    width: 100%;
-    }
-    /* Download Button */
-    .download-btn {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 1rem 2rem;
-    background: #00ffcc;
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background 0.3s;
-    position: relative;
-    overflow: hidden;
-    }
-    .download-btn:hover {
-    background: #00ff15;
-    }
-    .download-btn::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-    }
-    .download-btn:hover::before {
-    width: 300px;
-    height: 300px;
-    }
-    /* Animazioni Epiche */
-    .encryption-animation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9998;
-    display: none;
-    }
-    .encryption-particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #00ffcc;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #00ffcc;
-    }
-    .lock-animation {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 100px;
-    color: #00ffcc;
-    opacity: 0;
-    z-index: 9999;
-    pointer-events: none;
-    }
-    .data-stream {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9997;
-    display: none;
-    }
-    .data-stream-line {
-    position: absolute;
-    height: 2px;
-    background: rgba(0, 255, 204, 0.6);
-    width: 0;
-    }
-    /* Hero BG GIF */
-    .hero-bg-gif {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 60px);
-    z-index: 0;
-    pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    overflow: hidden;
-    opacity: 1;
-    transition: opacity 0.05s linear;
-    }
-    .hero-bg-gif img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-    }
-    .hero, .features, .use-cases, #download, footer, center {
-    position: relative;
-    z-index: 1;
-    }
-    @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-    }
-    @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-    }
-    @keyframes lockPulse {
-    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-    }
-</style>
-</head>
-<body>
-<!-- Matrix Background -->
-<div class="matrix">
-    <canvas id="matrixCanvas"></canvas>
-</div>
-<!-- Mouse Aura -->
-<div class="mouse-aura" id="mouseAura"></div>
-<!-- Animazioni Epiche -->
-<div class="encryption-animation" id="encryptionAnimation"></div>
-<div class="lock-animation" id="lockAnimation">🔒</div>
-<div class="data-stream" id="dataStream"></div>
-<!-- Navbar -->
-<nav class="navbar">
-    <div class="logo-container">
-        <div class="logo-blend"></div>
-    </div>
-    <h1>AVGVSTO by RoyMerlo & <a href="https://r-px.itch.io/" style="color: #00ff95; text-decoration: none;">Rpx</a></h1>
-    <ul>
-    <li><a href="#features">Features</a></li>
-    <li><a href="#use-cases">Use Cases</a></li>
-    <li><a href="#download">Download</a></li>
-    </ul>
-    <div class="lang-toggle">
-    <button onclick="setLang('en')" id="enBtn" class="active">EN</button>
-    <button onclick="setLang('it')" id="itBtn">IT</button>
-    </div>
-</nav>
-<!-- Hero BG GIF -->
-<div class="hero-bg-gif" id="heroBgGif">
-    <img src="https://i.ibb.co/HD3zstd5/avg1.gif" alt="">
-</div>
-
-<!-- Hero Section -->
-<section class="hero">
-    <h1 data-en="AVGVSTO: Cybersecurity Reinvented" data-it="AVGVSTO: Sicurezza Informatica Rinnovata">AVGVSTO: Cybersecurity Reinvented</h1>
-    <p data-en="Advanced encryption suite combining hardware-bound security, AES-256, and brute-force protection. Your data stays safe, always." data-it="Suite di crittografia avanzata con protezione hardware, AES-256 e protezione da attacchi brute-force. I tuoi dati sono al sicuro, sempre.">Advanced encryption suite combining hardware-bound security, AES-256, and brute-force protection. Your data stays safe, always.</p>
-</section>
-<!-- Features Section -->
-<section id="features" class="features">
-    <div class="feature" onclick="triggerEncryptionAnimation()">
-    <h4 data-en="Hardware-Bound Encryption" data-it="Crittografia Legata all'Hardware">Hardware-Bound Encryption</h4>
-    <p data-en="Files decrypt only when the authorized USB drive is connected. Even if stolen, data remains inaccessible." data-it="I file si decriptano solo con la chiavetta USB autorizzata. Anche se rubati, i dati restano inaccessibili.">Files decrypt only when the authorized USB drive is connected. Even if stolen, data remains inaccessible.</p>
-    </div>
-    <div class="feature" onclick="triggerDataStream()">
-    <h4 data-en="AES-256 with PBKDF2" data-it="AES-256 con PBKDF2">AES-256 with PBKDF2</h4>
-    <p data-en="Military-grade encryption with 1M iterations for password-to-key conversion. Brute-force attacks become impossible." data-it="Crittografia militare con 1 milione di iterazioni per la conversione password-chiave. Gli attacchi brute-force diventano impossibili.">Military-grade encryption with 1M iterations for password-to-key conversion. Brute-force attacks become impossible.</p>
-    </div>
-    <div class="feature" onclick="triggerLockAnimation()">
-    <h4 data-en="Brute-Force Protection" data-it="Protezione da Forza Bruta">Brute-Force Protection</h4>
-    <p data-en="3 failed attempts = automatic deletion of encrypted files. No backdoors, no vulnerabilities." data-it="3 tentativi falliti = eliminazione automatica dei file. Nessun backdoor, nessuna vulnerabilità.">3 failed attempts = automatic deletion of encrypted files. No backdoors, no vulnerabilities.</p>
-    </div>
-</section>
-<!-- Use Cases Section -->
-<section id="use-cases" class="use-cases">
-    <h3 data-en="Who Can Use AVGVSTO?" data-it="Chi Può Usare AVGVSTO?">Who Can Use AVGVSTO?</h3>
-    <div class="case">
-    <h4 data-en="Professionals" data-it="Professionisti">Professionals</h4>
-    <p data-en="Lawyers, doctors, and accountants protect sensitive documents with hardware-level security." data-it="Avvocati, medici e contabili proteggono documenti sensibili con sicurezza a livello hardware.">Lawyers, doctors, and accountants protect sensitive documents with hardware-level security.</p>
-    </div>
-    <div class="case">
-    <h4 data-en="Enterprises" data-it="Aziende">Enterprises</h4>
-    <p data-en="Secure trade secrets, client data, and internal communications against cyber threats." data-it="Proteggi segreti commerciali, dati clienti e comunicazioni interne da minacce cyber.">Secure trade secrets, client data, and internal communications against cyber threats.</p>
-    </div>
-    <div class="case">
-    <h4 data-en="Individuals" data-it="Utenti Privati">Individuals</h4>
-    <p data-en="Protect personal photos, videos, and files from unauthorized access at home." data-it="Proteggi foto, video e file personali da accessi non autorizzati a casa tua.">Protect personal photos, videos, and files from unauthorized access at home.</p>
-    </div>
-</section>
-<!-- Download Section -->
-<section id="download" style="text-align:center; padding:4rem 2rem;">
-    <h3 data-en="Download AVGVSTO" data-it="Scarica AVGVSTO">Download AVGVSTO</h3>
-</section>
-<center>
-<iframe frameborder="0" 
-    src="https://itch.io/embed/3574694?border_width=5&amp;bg_color=000000&amp;fg_color=00ffcc&amp;link_color=00ffff&amp;border_color=111111" 
-    width="560" 
-    height="175" 
-    style="filter: drop-shadow(0 0 5px #00ffcc) contrast(1.2); animation: pulse 2s infinite;">
-</iframe>
-<hr>
-<br>
-<img src="https://i.postimg.cc/zfvcDHC2/v1-ezgif-com-speed.gif" alt="">
-<br>
-</center>
-<!-- Legal & Footer Section -->
-<footer style="background: #0d0d0d; padding: 4rem 2rem; border-top: 2px solid #00ffcc;">
-<div style="max-width: 1200px; margin: auto;">
-    <center><h3 data-en="Legal & Copyright" data-it="Legale & Copyright">_____________________</h3></center>
-    <!-- Contact & Credits -->
-    <div class="legal-section" style="margin-top: 2rem; text-align: center;">
-    <p data-en="For legal inquiries or collaborations, contact us on GitHub." data-it="Per richieste legali o collaborazioni, contattaci su GitHub.">For legal inquiries or collaborations, contact us on <a href="https://github.com/RoyMerlo/AVGVSTO" style="color: #00bbff;">GitHub.</a></p>
-    <p style="font-size: 0.9rem; color: #666; margin-top: 1rem;">© 2025 AVGVSTO. All rights reserved.</p>
-    </div>
-</div>
-</footer>
-<!-- Scroll to Top Button -->
-<button onclick="scrollToTop()" style="position: fixed; bottom: 20px; right: 20px; background: #00ffcc; color: #000; border: none; padding: 1rem; border-radius: 5px; cursor: pointer; z-index: 9999;">↑</button>
-<script>
-// Scroll to Top Function
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-// Hero BG GIF fade on scroll
-const heroBgGif = document.getElementById('heroBgGif');
-window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const fadeStart = 0;
-    const fadeEnd = 350;
-    const opacity = Math.max(0, 1 - (scrolled - fadeStart) / (fadeEnd - fadeStart));
-    heroBgGif.style.opacity = opacity;
-});
-// Matrix Animation
-const canvas = document.getElementById('matrixCanvas');
-const ctx = canvas.getContext('2d');
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-const letters = '01'.split('');
-const fontSize = 10;
-const columns = canvas.width / fontSize;
-const drops = Array(Math.floor(columns)).fill(1);
-function draw() {
-    ctx.fillStyle = '#0d0d0d';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#00ffcc';
-    ctx.font = fontSize + 'px monospace';
-    for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height || Math.random() > 0.975) {
-            drops[i] = 0;
-        }
-        drops[i]++;
-    }
-}
-setInterval(draw, 33);
-// Mouse Aura
-const aura = document.getElementById('mouseAura');
-document.addEventListener('mousemove', (e) => {
-    aura.style.left = `${e.clientX}px`;
-    aura.style.top = `${e.clientY}px`;
-});
-// Language Toggle
-function setLang(lang) {
-    document.querySelectorAll('[data-en]').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
-    });
-    document.getElementById('enBtn').classList.toggle('active', lang === 'en');
-    document.getElementById('itBtn').classList.toggle('active', lang === 'it');
-}
-// Animazioni Epiche
-function triggerEncryptionAnimation() {
-    const animationContainer = document.getElementById('encryptionAnimation');
-    animationContainer.style.display = 'block';
-    animationContainer.innerHTML = '';
-    
-    for (let i = 0; i < 100; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'encryption-particle';
-        particle.style.left = `${Math.random() * 100}%`;
-        particle.style.top = `${Math.random() * 100}%`;
-        particle.style.animation = `pulse ${0.5 + Math.random() * 2}s infinite`;
-        animationContainer.appendChild(particle);
-    }
-    
-    setTimeout(() => {
-        animationContainer.style.display = 'none';
-    }, 3000);
-}
-function triggerLockAnimation() {
-    const lock = document.getElementById('lockAnimation');
-    lock.style.animation = 'lockPulse 2s forwards';
-    
-    setTimeout(() => {
-        lock.style.animation = '';
-    }, 2000);
-}
-function triggerDataStream() {
-    const streamContainer = document.getElementById('dataStream');
-    streamContainer.style.display = 'block';
-    streamContainer.innerHTML = '';
-    
-    for (let i = 0; i < 20; i++) {
-        const line = document.createElement('div');
-        line.className = 'data-stream-line';
-        line.style.top = `${Math.random() * 100}%`;
-        line.style.left = `${Math.random() * 100}%`;
-        line.style.width = `${20 + Math.random() * 80}%`;
-        line.style.animation = `pulse ${1 + Math.random() * 3}s infinite`;
-        streamContainer.appendChild(line);
-    }
-    
-    setTimeout(() => {
-        streamContainer.style.display = 'none';
-    }, 3000);
-}
-</script>
-<!DOCTYPE html>
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVGVSTO - Simulated Desktop</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
+    <title>AVGVSTO · Advanced Encryption Suite</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* --- Base & Matrix Background (from website) --- */
-        :root {
-            --primary-color: #00ffcc;
-            --primary-hover: #00ff40;
-            --secondary-color: #14ff7e;
-            --dark-bg: #000000;
-            --panel-bg: #0d0d0d;
-            --item-bg: #272727b9;
-            --text-color: var(--primary-color);
-            --border-color: var(--primary-color);
-        }
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
+
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-color);
+            background-color: #0a0a0a;
+            color: #d0d0d0;
+            font-family: 'Courier New', 'Fira Code', monospace;
+            line-height: 1.6;
             overflow-x: hidden;
-            cursor: none; /* Custom cursor from website */
-            margin: 0;
-            padding: 0;
+            scroll-behavior: smooth;
         }
-        /* Matrix Background */
-        .matrix {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: -1;
-            background: #0d0d0d;
-            overflow: hidden;
+
+        /* palette */
+        :root {
+            --bg: #0a0a0a;
+            --surface: #111111;
+            --surface2: #181818;
+            --surface3: #202020;
+            --border: #242424;
+            --accent: #00ffcc;
+            --accent-dim: #00bb99;
+            --accent-red: #ff3355;
+            --accent-red-dim: #cc2244;
+            --text: #d0d0d0;
+            --text-dim: #3e3e3e;
+            --text-mid: #888888;
+            --text-bright: #ffffff;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --error: #ff3355;
         }
-        .matrix canvas {
-            display: block;
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s;
         }
-        /* Mouse Aura */
-        .mouse-aura {
-            position: fixed;
-            top: 0; left: 0;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #00ffcc88 0%, transparent 70%);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease, opacity 0.3s ease;
-            z-index: 9999;
+        a:hover {
+            color: var(--text-bright);
         }
-        /* --- App Container --- */
-        .app-container {
+
+        .container {
             max-width: 1200px;
-            margin: 20px auto;
-            background-color: var(--panel-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
-            position: relative; /* For z-index */
-            z-index: 10; /* Above matrix */
+            margin: 0 auto;
+            padding: 0 2rem;
         }
-        /* --- Header --- */
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .title {
-            font-family: 'Orbitron', sans-serif; /* From website */
-            font-size: 48px;
-            font-weight: bold;
-            color: var(--text-color);
-            margin-bottom: 5px;
-            text-shadow: 0 0 5px var(--primary-color); /* Subtle glow */
-        }
-        .subtitle {
-            font-size: 14px;
-            color: #aaaaaa; /* Slightly different from website but fits */
-            margin-bottom: 15px;
-        }
-        /* --- Logo Container (Updated to match website style) --- */
-        .logo-container {
+
+        /* navbar */
+        .navbar {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border);
             flex-wrap: wrap;
+            backdrop-filter: blur(5px);
+            background: rgba(10,10,10,0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .logo-blend {
-            position: relative;
-            height: 160%;
-            width: 160%;
-            background: url('https://i.postimg.cc/cJC4CcR0/logor.png') center/contain no-repeat;
-            filter: drop-shadow(0 0 2px var(--primary-color));
-            transition: all 0.3s ease;
-        }
-        .logo-blend:hover {
-            filter: drop-shadow(0 0 8px var(--primary-color)) contrast(1.2);
-            transform: scale(1.1);
-        }
-        .logo-blend-rpx {
-            position: relative;
-            height: 30px;
-            width: 60px;
-            background: url('https://i.postimg.cc/vTM6qPCG/rpx-mon.png') center/contain no-repeat;
-            filter: drop-shadow(0 0 2px var(--primary-color));
-            transition: all 0.3s ease;
-        }
-        .logo-blend-rpx:hover {
-            filter: drop-shadow(0 0 8px var(--primary-color)) contrast(1.2);
-            transform: scale(1.1);
-        }
-        .logo-text {
-            font-size: 12px;
-            color: #aaaaaa;
-        }
-        /* --- Main Content Layout --- */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
-        /* --- Desktop Area --- */
-        .desktop-area {
-            background-color: var(--item-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            padding: 15px;
-            min-height: 500px;
-        }
-        .desktop-title {
-            font-family: 'Orbitron', sans-serif; /* Consistent title font */
-            font-size: 18px;
-            margin-bottom: 15px;
-            color: var(--text-color);
+
+        .logo {
             display: flex;
             align-items: center;
+            gap: 0.75rem;
         }
-        .desktop-title::before {
-            content: "🖥️";
-            margin-right: 10px;
-        }
-        /* --- File Items --- */
-        .file-item {
+
+        .hex-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
             display: flex;
             align-items: center;
-            padding: 8px 12px;
-            margin: 5px 0;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
+            justify-content: center;
+            font-weight: bold;
+            color: #0a0a0a;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .hex-icon:hover {
+            transform: rotate(15deg);
+        }
+
+        .logo span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-bright);
+            letter-spacing: 2px;
+        }
+        .logo span small {
+            font-size: 0.8rem;
+            color: var(--text-mid);
+            margin-left: 0.3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-mid);
+            font-weight: 500;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .lang-switch {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding: 0.4rem 1rem;
             cursor: pointer;
-            transition: background-color 0.2s, transform 0.2s;
-            user-select: none;
+            transition: 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 0;
+        }
+        .lang-switch:hover {
+            background: var(--accent);
+            color: #0a0a0a;
+        }
+
+        /* fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* pulsanti */
+        .btn {
+            display: inline-block;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            padding: 0.75rem 2rem;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
-        .file-item:hover {
-            background-color: rgba(0, 255, 204, 0.1);
-            transform: translateX(5px);
-        }
-        .file-item.selected {
-            background-color: rgba(0, 255, 204, 0.2);
-            outline: 1px solid var(--border-color);
-        }
-        .file-item::before {
-            content: "";
+        .btn::before {
+            content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.4), transparent);
-            transition: 0.5s;
+            background: var(--accent);
+            transition: left 0.3s;
+            z-index: -1;
         }
-        .file-item:hover::before {
-            left: 100%;
+        .btn:hover::before {
+            left: 0;
         }
-        .file-icon {
-            margin-right: 10px;
-            font-size: 16px;
+        .btn:hover {
+            color: #0a0a0a;
         }
-        .file-name {
-            flex-grow: 1;
-            font-size: 14px;
-            word-break: break-all;
+        .btn-red {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
         }
-        /* --- Controls Panel --- */
-        .controls-panel {
-            background-color: var(--item-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            padding: 15px;
+        .btn-red::before {
+            background: var(--accent-red);
+        }
+        .btn-red:hover {
+            color: #0a0a0a;
+        }
+        .btn-small {
+            padding: 0.4rem 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        /* hero */
+        .hero {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .panel-section {
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 15px;
-        }
-        .panel-section:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-        .panel-title {
-            font-family: 'Orbitron', sans-serif; /* Consistent title font */
-            font-size: 16px;
-            margin-bottom: 10px;
-            color: var(--text-color);
-            cursor: pointer;
-            user-select: none;
-            display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            padding: 4rem 2rem;
+            gap: 3rem;
+            flex-wrap: wrap;
         }
-        .panel-title::after {
-            content: "▼";
-            font-size: 12px;
-            transition: transform 0.3s ease;
+
+        .hero-content {
+            flex: 1 1 500px;
         }
-        .panel-title.collapsed::after {
-            transform: rotate(-90deg);
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: bold;
+            color: var(--text-bright);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
         }
-        /* --- USB Selector & Buttons --- */
-        .usb-selector {
-            width: 100%;
-            padding: 8px;
-            background-color: #111;
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            margin-bottom: 10px;
-            font-family: 'Roboto', sans-serif;
+        .hero-content h1 span {
+            color: var(--accent);
         }
-        .btn {
-            background-color: transparent;
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 8px 12px;
-            width: 100%;
-            font-size: 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s;
+        .hero-content .version {
+            color: var(--text-mid);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            color: var(--text-mid);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            flex: 0 0 300px;
+            height: 300px;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-family: 'Roboto', sans-serif;
-            position: relative;
-            overflow: hidden;
         }
-        .btn:last-child {
-            margin-bottom: 0;
-        }
-        .btn:hover {
-            background-color: var(--primary-color);
-            color: #000;
-            box-shadow: 0 0 8px var(--primary-color);
-            border-color: var(--primary-hover);
-        }
-        .btn::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        .btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background-color: transparent;
-            color: #666666;
-            border-color: #666666;
-            box-shadow: none;
-        }
-        /* --- Status Bar --- */
-        .status-bar {
-            background-color: var(--item-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            padding: 10px 15px;
-            margin-top: 20px;
-            min-height: 20px;
-        }
-        .status-message {
-            font-size: 14px;
-            word-break: break-word;
-        }
-        .status-message.info { color: var(--primary-color); }
-        .status-message.success { color: #00cc66; text-shadow: 0 0 3px #00cc6644; }
-        .status-message.error { color: #cc3300; text-shadow: 0 0 3px #cc330044; }
-        .status-message.warning { color: #ffcc00; text-shadow: 0 0 3px #ffcc0044; }
-        /* --- Instructions Section --- */
-        .instructions-content {
-            font-size: 13px;
-            line-height: 1.5;
-            color: #aaaaaa;
-            padding-top: 10px;
-            border-top: 1px dashed var(--border-color);
-        }
-        .instructions-content ul {
-            padding-left: 20px;
-            margin: 10px 0;
-        }
-        .instructions-content li {
-            margin-bottom: 8px;
-        }
-        .instructions-content strong {
-            color: var(--secondary-color);
-        }
-        /* --- Modal --- */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
+
+        .hexagon-grid {
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background: radial-gradient(circle at 30% 30%, var(--accent-dim) 0%, transparent 70%);
+            filter: blur(8px);
+            opacity: 0.3;
+            position: absolute;
+            animation: rotateSlow 20s infinite linear;
         }
-        .modal-content {
-            background-color: var(--panel-bg);
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 5px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 0 15px var(--border-color);
-            border: 1px solid var(--border-color);
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        .modal-header {
+
+        .floating-hex {
+            width: 180px;
+            height: 180px;
+            background: transparent;
+            border: 3px solid var(--accent);
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--accent);
+            box-shadow: 0 0 40px rgba(0,255,204,0.3);
+            animation: pulse 4s infinite;
+            z-index: 2;
+            background: rgba(0,255,204,0.05);
         }
-        .modal-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
-            color: var(--text-color);
-            margin: 0;
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 60px rgba(0,255,204,0.6); }
+            100% { transform: scale(1); opacity: 0.8; }
         }
-        .close-modal {
-            background: none;
-            border: none;
-            color: #aaaaaa;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
-            transition: color 0.2s;
+
+        /* sezioni */
+        .section {
+            padding: 5rem 2rem;
+            border-top: 1px solid var(--border);
         }
-        .close-modal:hover {
-            color: var(--text-color);
-        }
-        .modal-input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: #111;
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
-        .modal-buttons {
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--text-bright);
+            margin-bottom: 2rem;
             display: flex;
-            gap: 10px;
-            margin-top: 15px;
+            align-items: center;
+            gap: 1rem;
         }
-        .modal-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-family: 'Roboto', sans-serif;
+        .section-title i {
+            color: var(--accent);
+            font-size: 2rem;
+            animation: subtle-spin 6s infinite;
+        }
+        @keyframes subtle-spin {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        /* features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: var(--surface);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0,255,204,0.2);
+        }
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            transition: transform 0.3s;
+        }
+        .feature-card:hover i {
+            transform: scale(1.2);
+        }
+        .feature-card h3 {
+            color: var(--text-bright);
+            margin-bottom: 0.8rem;
+        }
+        .feature-card p {
+            color: var(--text-mid);
+            font-size: 0.95rem;
+        }
+
+        /* steps */
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .step {
+            flex: 1 1 200px;
+            text-align: center;
+            background: var(--surface2);
+            padding: 2rem 1rem;
+            border: 1px solid var(--border);
             transition: all 0.3s;
         }
-        .modal-btn-confirm {
-            background-color: var(--primary-color);
-            color: #000;
+        .step:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
         }
-        .modal-btn-confirm:hover {
-            background-color: var(--primary-hover);
-            box-shadow: 0 0 8px var(--primary-color);
+        .step .number {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: #0a0a0a;
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            transition: transform 0.3s;
         }
-        .modal-btn-cancel {
-            background-color: #666666;
-            color: #fff;
+        .step:hover .number {
+            transform: rotate(15deg);
         }
-        .modal-btn-cancel:hover {
-            background-color: #888888;
+        .step h3 {
+            color: var(--text-bright);
+            margin-bottom: 0.5rem;
         }
-        /* --- Encryption Progress Bar --- */
-        .progress-container {
+
+        /* gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        .gallery-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .gallery-item:hover {
+            border-color: var(--accent);
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(0,255,204,0.3);
+        }
+        .gallery-item img {
             width: 100%;
-            height: 10px;
-            background-color: #111;
-            border-radius: 5px;
-            margin-top: 10px;
-            overflow: hidden;
-            display: none;
+            height: 180px;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            filter: grayscale(30%);
+            transition: filter 0.3s;
         }
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-color), var(--primary-hover));
-            width: 0%;
-            transition: width 0.3s;
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+        }
+        .gallery-item p {
+            margin-top: 0.8rem;
+            color: var(--text-mid);
+            font-size: 0.9rem;
+        }
+
+        /* lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 50px rgba(0,255,204,0.5);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 3rem;
+            color: var(--text-mid);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .lightbox-close:hover {
+            color: var(--accent-red);
+        }
+
+        /* download section */
+        .download-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+        .download-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            flex: 1 1 200px;
+            transition: 0.3s;
+        }
+        .download-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        .download-card i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        .download-card h3 {
+            color: var(--text-bright);
+            margin-bottom: 1rem;
+        }
+        .download-card .btn-small {
+            margin-top: 1rem;
+        }
+        .iframe-placeholder {
+            background: var(--surface2);
+            border: 2px dashed var(--accent-dim);
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            color: var(--text-mid);
+        }
+
+        /* devlog */
+        .devlog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .devlog-entry {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+            transition: 0.3s;
+        }
+        .devlog-entry:hover {
+            transform: translateX(10px);
+            border-left-color: var(--accent-red);
+        }
+        .devlog-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .devlog-title {
+            font-size: 1.4rem;
+            color: var(--text-bright);
+            margin-bottom: 0.5rem;
+        }
+        .devlog-content {
+            color: var(--text-mid);
+        }
+
+        /* footer */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-content h1 {
+                font-size: 3rem;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Matrix Background -->
-    <div class="matrix">
-        <canvas id="matrixCanvas2"></canvas>
+    <nav class="navbar">
+        <div class="logo">
+            <div><img style="width: 10%;" src="https://i.ibb.co/q3bkfnvp/avl.png" alt=""></div>
+            <span style="font-size: 2rem;">AVGVSTO <small>v3.1.3</small></span>
+        </div>
+        <div style="display: flex; gap: 1.5rem; align-items: center;">
+            <div class="nav-links">
+                <a href="#features" data-i18n="nav_features">Features</a>
+                <a href="#how" data-i18n="nav_how">How it works</a>
+                <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
+                <a href="#download" data-i18n="nav_download">Download</a>
+                <a href="#devlog" data-i18n="nav_devlog">Devlog</a>
+                <a href="#security" data-i18n="nav_security">Security</a>
+            </div>
+            <button class="lang-switch" id="lang-toggle">ITA</button>
+        </div>
+    </nav>
+
+    <section class="hero container fade-in">
+        <div class="hero-content">
+            <h1><span data-i18n="hero_span">AES-256-GCM</span><br><span data-i18n="hero_with">with USB key</span></h1>
+            <div class="version" data-i18n="hero_by">Powered by <span style="color: aqua;">Roy Merlo</span> and developed in collaboration with <span style="color: aqua;">Rpx</span></div>
+            <p data-i18n="hero_desc">AVGVSTO is an advanced encryption suite that binds every encrypted file to a specific USB drive. Without that physical key, decryption is impossible, even with the correct password.</p>
+            <div class="hero-buttons">
+                <a href="https://github.com/RoyMerlo/AVGVSTO/releases" class="btn"><i class="fas fa-download"></i> <span data-i18n="hero_download">Download</span></a>
+                <a href="https://github.com/RoyMerlo/AVGVSTO" class="btn btn-red"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#features" class="btn btn-small" data-i18n="hero_learn">Learn more</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hexagon-grid"></div>
+            <div class="floating-hex"><i class="fas fa-lock"></i></div>
+        </div>
+    </section>
+
+    <section id="features" class="section container fade-in">
+        <div class="section-title">
+            <i class="fas fa-cubes"></i>
+            <h2 data-i18n="features_title">Key Features</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-usb"></i>
+                <h3 data-i18n="feature1_title">Hardware binding</h3>
+                <p data-i18n="feature1_desc">The key is derived from your USB's hardware identifier. Even with the password, without that exact drive the files remain unreadable.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3 data-i18n="feature2_title">AES-256-GCM</h3>
+                <p data-i18n="feature2_desc">Authenticated encryption, the same standard used by banks and governments. Protects both confidentiality and integrity.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-hourglass-half"></i>
+                <h3 data-i18n="feature3_title">Attempt limit</h3>
+                <p data-i18n="feature3_desc">Set a maximum number of decryption attempts. After the limit is reached, the file is locally locked.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-user-secret"></i>
+                <h3 data-i18n="feature4_title">Duress password</h3>
+                <p data-i18n="feature4_desc">Two distinct passwords produce two different files (real and decoy). No one can prove which one is real.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-trash-alt"></i>
+                <h3 data-i18n="feature5_title">Secure delete</h3>
+                <p data-i18n="feature5_desc">The original file is overwritten multiple times before deletion, making recovery impossible on HDDs.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-sync-alt"></i>
+                <h3 data-i18n="feature6_title">Reset password</h3>
+                <p data-i18n="feature6_desc">If you enable attempt limit, you can set a reset password (stored on the USB) to unlock counters.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how" class="section container fade-in">
+        <div class="section-title">
+            <i class="fas fa-cog"></i>
+            <h2 data-i18n="how_title">How it works</h2>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="number">1</div>
+                <h3 data-i18n="step1_title">Bind your USB</h3>
+                <p data-i18n="step1_desc">Insert your drive and set it as the authorised hardware key.</p>
+            </div>
+            <div class="step">
+                <div class="number">2</div>
+                <h3 data-i18n="step2_title">Encrypt</h3>
+                <p data-i18n="step2_desc">Choose files or folders, set a password and attempt limit. The original is securely deleted.</p>
+            </div>
+            <div class="step">
+                <div class="number">3</div>
+                <h3 data-i18n="step3_title">Decrypt</h3>
+                <p data-i18n="step3_desc">Plug in the same USB, enter the password. If attempts are exhausted, use the reset password (if configured).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERIA INTERATTIVA -->
+    <section id="gallery" class="section container fade-in">
+        <div class="section-title">
+            <i class="fas fa-images"></i>
+            <h2 data-i18n="gallery_title">Screenshots</h2>
+        </div>
+        <div class="gallery-grid" id="gallery-grid">
+            <!-- immagini placeholder: sostituire con src reali -->
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/00ffcc?text=AVGVSTO+GUI+1">
+                <img src="https://i.ibb.co/PzMxL2Zk/Screenshot-2026-03-12-152401.png" alt="Screenshot 1">
+                <p>AVGVSTO Main interface</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ff3355?text=Encryption+in+progress">
+                <img src="https://i.ibb.co/rKJwFLgL/Screenshot-2026-03-11-122340.png" alt="Screenshot 2">
+                <p>Simple UI</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/00ff88?text=USB+Analysis">
+                <img src="https://i.ibb.co/XrpzVFKh/Screenshot-2026-03-12-111029.png" alt="Screenshot 3">
+                <p>USB analysis tool</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+                <img src="https://i.ibb.co/MDpRKZQm/Screenshot-2026-03-12-182156.png" alt="Screenshot 4">
+                <p>Attemps Reset settings</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+                <img src="https://i.ibb.co/q3F9WqXH/Screenshot-2026-03-12-175731.png" alt="Screenshot 4">
+                <p>Encryption UI</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+                <img src="https://i.ibb.co/Bbjtt0f/Screenshot-2026-03-12-180232.png" alt="Screenshot 4">
+                <p>Encryption progress bar</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+                <img src="https://i.ibb.co/s9wT2jyK/Screenshot-2026-03-12-180408.png" alt="Screenshot 4">
+                <p>Brute Force Locker</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+                <img src="https://i.ibb.co/tPkbxbQw/Screenshot-2026-03-12-181129.png" alt="Screenshot 4">
+                <p>File integrity analyzer</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+                <img src="https://i.ibb.co/3yTRtbYK/Screenshot-2026-03-12-181612.png" alt="Screenshot 4">
+                <p>Single action choice</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+                <img src="https://i.ibb.co/jP3Ld5ms/Screenshot-2026-03-12-181717.png" alt="Screenshot 4">
+                <p>Encryption Password UI</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+                <img src="https://i.ibb.co/1tLN28P0/Screenshot-2026-03-12-181447.png" alt="Screenshot 4">
+                <p>USB Cleaner</p>
+            </div>
+            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+                <img src="https://i.ibb.co/Tx03CZnG/Screenshot-2026-03-12-181409.png" alt="Screenshot 4">
+                <p>Help user guide</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SEZIONE DOWNLOAD con iframe placeholder -->
+    <section id="download" class="section container fade-in">
+        <div class="section-title">
+            <i class="fas fa-download"></i>
+            <h2 data-i18n="download_title">Download</h2>
+        </div>
+        <div class="download-cards">
+            <div class="download-card">
+                <i class="fab fa-windows"></i>
+                <h3>Windows</h3>
+                <a href="https://github.com/RoyMerlo/AVGVSTO/releases" class="btn btn-small" data-i18n="download_win">Download .exe</a>
+            </div>
+            <div class="download-card">
+                <i class="fab fa-apple"></i>
+                <h3>macOS</h3>
+                <a href="https://github.com/RoyMerlo/AVGVSTO/releases" class="btn btn-small" data-i18n="download_mac">Download .dmg</a>
+            </div>
+            <div class="download-card">
+                <i class="fab fa-linux"></i>
+                <h3>Linux</h3>
+                <a href="https://github.com/RoyMerlo/AVGVSTO/releases" class="btn btn-small" data-i18n="download_linux">Download .AppImage</a>
+            </div>
+        </div>
+        <!-- IFrame placeholder: puoi inserire qui il tuo iframe (es. da GitHub o altro) -->
+        <div class="iframe-placeholder">
+            <iframe frameborder="0" src="https://itch.io/embed/3574694?border_width=5&amp;bg_color=000000&amp;fg_color=0cffba&amp;link_color=9fff4e&amp;border_color=ffffff" width="560" height="175"><a href="https://r-px.itch.io/avgvsto">AVGVSTO by Rpx</a></iframe>
+        </div>
+    </section>
+
+    <!-- DEVLOG -->
+    <section id="devlog" class="section container fade-in">
+        <div class="section-title">
+            <i class="fas fa-history"></i>
+            <h2 data-i18n="devlog_title">Development log</h2>
+        </div>
+        <div class="devlog-list">
+            <div class="devlog-entry">
+                <div class="devlog-date">2025-03-12</div>
+                <div class="devlog-title" data-i18n="devlog1_title">v4.0 released</div>
+                <div class="devlog-content" data-i18n="devlog1_desc">Added duress password support, improved USB analysis, and new UI.</div>
+            </div>
+            <div class="devlog-entry">
+                <div class="devlog-date">2025-02-28</div>
+                <div class="devlog-title" data-i18n="devlog2_title">Attempt limit reset</div>
+                <div class="devlog-content" data-i18n="devlog2_desc">Now you can reset locked counters via USB reset password.</div>
+            </div>
+            <div class="devlog-entry">
+                <div class="devlog-date">2025-02-10</div>
+                <div class="devlog-title" data-i18n="devlog3_title">Portable mode</div>
+                <div class="devlog-content" data-i18n="devlog3_desc">Introduced .avgvsto_portable flag for USB-only config storage.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="security" class="section container fade-in">
+        <div class="section-title">
+            <i class="fas fa-lock"></i>
+            <h2 data-i18n="security_title">Security model</h2>
+        </div>
+        <div class="security-badge">
+            <div class="security-item">
+                <div class="label" data-i18n="security_algo">Algorithm</div>
+                <div class="value">AES-256-GCM</div>
+            </div>
+            <div class="security-item">
+                <div class="label" data-i18n="security_kdf">Key derivation</div>
+                <div class="value">PBKDF2-SHA256, 1M iterations</div>
+            </div>
+            <div class="security-item">
+                <div class="label" data-i18n="security_hw">Hardware binding</div>
+                <div class="value">USB device ID</div>
+            </div>
+            <div class="security-item">
+                <div class="label" data-i18n="security_bf">Brute‑force protection</div>
+                <div class="value">Progressive cooldown</div>
+            </div>
+        </div>
+        <p style="margin-top:2rem; color:var(--text-mid);" data-i18n="security_desc">
+            An attacker with the encrypted file but <strong>without the USB</strong> cannot decrypt.  
+            With the USB but <strong>without the password</strong> neither.  
+            If you set an attempt limit and it is reached, the file is locked locally: you can only unlock it with the reset password (stored on the USB).
+        </p>
+    </section>
+
+    <section class="section container fade-in">
+        <div class="section-title">
+            <i class="fas fa-code-branch"></i>
+            <h2 data-i18n="authors_title">Authors</h2>
+        </div>
+        <div class="authors">
+            <div class="author">
+                <div class="name">Roy Merlo</div>
+                <div class="handle"><i class="fab fa-github"></i> @RoyMerlo</div>
+            </div>
+            <div class="author">
+                <div class="name">RPX</div>
+                <div class="handle red"><i class="fab fa-github"></i> @rpx</div>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:2rem;">
+            <a href="https://github.com/RoyMerlo/AVGVSTO" class="btn" target="_blank"><i class="fab fa-github"></i> <span data-i18n="footer_repo">Official repository</span></a>
+            <a href="https://roymerlo.github.io/AVGVSTO-SITE/" class="btn btn-red" target="_blank" style="margin-left:1rem;"><i class="fas fa-globe"></i> <span data-i18n="footer_site">Project site</span></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="https://github.com/RoyMerlo/AVGVSTO/issues" data-i18n="footer_issues">Report issue</a>
+            <a href="https://github.com/RoyMerlo/AVGVSTO/discussions" data-i18n="footer_discussions">Discussions</a>
+            <a href="mailto:avgvstorm@gmail.com">avgvstorm@gmail.com</a>
+        </div>
+        <p data-i18n="footer_copy">© 2025 Roy Merlo & RPX. AVGVSTO v3.1.3. MIT License.</p>
+        <p style="margin-top:0.5rem;" data-i18n="footer_tagline">"AES-256-GCM · USB bound · anti-forensic wipe"</p>
+    </footer>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="">
     </div>
-    <!-- Mouse Aura -->
-    <div class="mouse-aura" id="mouseAura2"></div>
-    <div class="app-container">
-        <div class="header">
-            <div class="title">AVGVSTO</div>
-            <div class="subtitle">Version 1.0 - Simulated Desktop Environment</div>
-            <div class="logo-container">
-                <div class="logo-blend"></div>
-                <span class="logo-text">- Powered By Roy Merlo</span>
-                <div class="logo-blend-rpx"></div>
-                <span class="logo-text">- Powered By RPX</span>
-            </div>
-        </div>
-        <div class="main-content">
-            <div class="desktop-area">
-                <h2 class="desktop-title">Desktop</h2>
-                <div id="file-list">
-                    <!-- File items will be populated here by JS -->
-                </div>
-            </div>
-            <div class="controls-panel">
-                <div class="panel-section">
-                    <h3 class="panel-title">USB Security</h3>
-                    <div>
-                        <select id="usb-selector" class="usb-selector">
-                            <option value="">Select USB drive...</option>
-                            <option value="USB_KEY_1">USB_KEY_1</option>
-                            <option value="USB_KEY_2">USB_KEY_2</option>
-                        </select>
-                        <button id="set-usb-btn" class="btn">
-                            <span>🔧</span> Set Secure USB Drive
-                        </button>
-                    </div>
-                </div>
-                <div class="panel-section">
-                    <h3 class="panel-title">Actions</h3>
-                    <div>
-                        <button id="encrypt-btn" class="btn" disabled>
-                            <span>🔐</span> Encrypt Selected
-                        </button>
-                        <button id="decrypt-btn" class="btn" disabled>
-                            <span>🔓</span> Decrypt Selected
-                        </button>
-                        <div class="progress-container" id="progress-container">
-                            <div class="progress-bar" id="progress-bar"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-section">
-                    <h3 id="instructions-toggle" class="panel-title collapsed">Instructions</h3>
-                    <div id="instructions-content" class="instructions-content" style="display: none;">
-                        <p><strong>How to use AVGVSTO Simulator:</strong></p>
-                        <ul>
-                            <li><strong>Select USB:</strong> Choose a USB key from the dropdown and click "Set Secure USB Drive".</li>
-                            <li><strong>Select File:</strong> Click on a file in the Desktop area to select it.</li>
-                            <li><strong>Encrypt:</strong> With a file selected and USB set, click "Encrypt Selected". Enter a password. The file will be marked as encrypted (.avgvsto).</li>
-                            <li><strong>Decrypt:</strong> Select an encrypted file (.avgvsto) and click "Decrypt Selected". You <strong>must</strong> use the <strong>same password</strong> that was used to encrypt it, along with the same USB key.</li>
-                            <li><strong>Security Rule:</strong> A file encrypted with USB_KEY_1 can only be decrypted with USB_KEY_1. Same for USB_KEY_2.</li>
-                            <li><strong>Note:</strong> This is a simulation. Files are not actually modified on your computer.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="status-bar">
-            <div id="status-message" class="status-message info">Ready. Select a file and configure USB.</div>
-        </div>
-    </div>
-    <!-- Password Modal -->
-    <div id="password-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="modal-title">Enter Password</h3>
-                <button class="close-modal">&times;</button>
-            </div>
-            <input type="password" id="password-input" class="modal-input" placeholder="Password">
-            <div class="modal-buttons">
-                <button id="confirm-password-btn" class="modal-btn modal-btn-confirm">Confirm</button>
-                <button id="cancel-password-btn" class="modal-btn modal-btn-cancel">Cancel</button>
-            </div>
-        </div>
-    </div>
+
     <script>
-        // --- Configuration & State ---
-        const USB_IDS = {
-            "USB_KEY_1": "usb_id_sim_1_hash_abc123",
-            "USB_KEY_2": "usb_id_sim_2_hash_def456"
-        };
-        // Simulated File System
-        let fileSystem = [
-            { id: 'f1', name: 'document.txt', type: 'file', isEncrypted: false, usbId: null, passwordHash: null },
-            { id: 'f2', name: 'image.jpg', type: 'file', isEncrypted: false, usbId: null, passwordHash: null },
-            { id: 'f3', name: 'report.pdf', type: 'file', isEncrypted: false, usbId: null, passwordHash: null },
-            { id: 'f4', name: 'secret_data.avgvsto', type: 'file', isEncrypted: true, usbId: "usb_id_sim_1_hash_abc123", passwordHash: "sim_hash_secret_usb1" }, // Pre-encrypted with USB1 and password "secret"
-            {
-                id: 'folder1', name: 'MyFolder', type: 'folder', contents: [
-                    { id: 'f5', name: 'note.txt', type: 'file', isEncrypted: false, usbId: null, passwordHash: null },
-                    { id: 'f6', name: 'archive.zip', type: 'file', isEncrypted: false, usbId: null, passwordHash: null }
-                ]
-            }
-        ];
-        let selectedFileId = null;
-        let config = {
-            secureUsbId: null,
-            secureUsbName: null
-        };
-        let currentAction = null;
-        let currentPassword = null;
-        // --- DOM Elements ---
-        const fileListEl = document.getElementById('file-list');
-        const usbSelector = document.getElementById('usb-selector');
-        const setUsbBtn = document.getElementById('set-usb-btn');
-        const encryptBtn = document.getElementById('encrypt-btn');
-        const decryptBtn = document.getElementById('decrypt-btn');
-        const statusMessageEl = document.getElementById('status-message');
-        const passwordModal = document.getElementById('password-modal');
-        const modalTitle = document.getElementById('modal-title');
-        const passwordInput = document.getElementById('password-input');
-        const confirmPasswordBtn = document.getElementById('confirm-password-btn');
-        const cancelPasswordBtn = document.getElementById('cancel-password-btn');
-        const closeModalBtn = document.querySelector('.close-modal');
-        const instructionsToggle = document.getElementById('instructions-toggle');
-        const instructionsContent = document.getElementById('instructions-content');
-        const progressContainer = document.getElementById('progress-container');
-        const progressBar = document.getElementById('progress-bar');
-        // --- Initialization ---
-        document.addEventListener('DOMContentLoaded', () => {
-            initWebsiteEffects(); // Initialize Matrix and Mouse Aura
-            loadConfig();
-            renderFileSystem();
-            updateUI();
-            setupEventListeners();
-        });
-        // --- Website Effects (Matrix, Mouse) ---
-        function initWebsiteEffects() {
-            // Matrix Animation
-            const canvas = document.getElementById('matrixCanvas2');
-            const ctx = canvas.getContext('2d');
-            canvas.height = window.innerHeight;
-            canvas.width = window.innerWidth;
-            const letters = '01'.split('');
-            const fontSize = 10;
-            const columns = canvas.width / fontSize;
-            const drops = Array(Math.floor(columns)).fill(1);
-            function draw() {
-                ctx.fillStyle = 'rgba(13, 13, 13, 0.05)'; // Semi-transparent black
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#00ffcc';
-                ctx.font = fontSize + 'px monospace';
-                for (let i = 0; i < drops.length; i++) {
-                    const text = letters[Math.floor(Math.random() * letters.length)];
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    if (drops[i] * fontSize > canvas.height || Math.random() > 0.975) {
-                        drops[i] = 0;
+        (function() {
+            // ---------- TRANSLATIONS (stesso blocco di prima) ----------
+            const translations = {
+                en: {
+                    nav_features: "Features",
+                    nav_how: "How it works",
+                    nav_gallery: "Gallery",
+                    nav_download: "Download",
+                    nav_devlog: "Devlog",
+                    nav_security: "Security",
+                    hero_span: "AES-256-GCM",
+                    hero_with: "with USB key",
+                    hero_by: "Powered by Roy Merlo and developed in collaboration with RPX",
+                    hero_desc: "AVGVSTO is an advanced encryption suite that binds every encrypted file to a specific USB drive. Without that physical key, decryption is impossible, even with the correct password.",
+                    hero_download: "Download",
+                    hero_learn: "Learn more",
+                    features_title: "Key Features",
+                    feature1_title: "Hardware binding",
+                    feature1_desc: "The key is derived from your USB's hardware identifier. Even with the password, without that exact drive the files remain unreadable.",
+                    feature2_title: "AES-256-GCM",
+                    feature2_desc: "Authenticated encryption, the same standard used by banks and governments. Protects both confidentiality and integrity.",
+                    feature3_title: "Attempt limit",
+                    feature3_desc: "Set a maximum number of decryption attempts. After the limit is reached, the file is locally locked.",
+                    feature4_title: "Duress password",
+                    feature4_desc: "Two distinct passwords produce two different files (real and decoy). No one can prove which one is real.",
+                    feature5_title: "Secure delete",
+                    feature5_desc: "The original file is overwritten multiple times before deletion, making recovery impossible on HDDs.",
+                    feature6_title: "Reset password",
+                    feature6_desc: "If you enable attempt limit, you can set a reset password (stored on the USB) to unlock counters.",
+                    how_title: "How it works",
+                    step1_title: "Bind your USB",
+                    step1_desc: "Insert your drive and set it as the authorised hardware key.",
+                    step2_title: "Encrypt",
+                    step2_desc: "Choose files or folders, set a password and attempt limit. The original is securely deleted.",
+                    step3_title: "Decrypt",
+                    step3_desc: "Plug in the same USB, enter the password. If attempts are exhausted, use the reset password (if configured).",
+                    gallery_title: "Screenshots",
+                    download_title: "Download",
+                    download_win: "Download .exe",
+                    download_mac: "Download .dmg",
+                    download_linux: "Download .AppImage",
+                    iframe_placeholder: "===",
+                    devlog_title: "Development log",
+                    devlog1_title: "v4.0 released",
+                    devlog1_desc: "Added duress password support, improved USB analysis, and new UI.",
+                    devlog2_title: "Attempt limit reset",
+                    devlog2_desc: "Now you can reset locked counters via USB reset password.",
+                    devlog3_title: "Portable mode",
+                    devlog3_desc: "Introduced .avgvsto_portable flag for USB-only config storage.",
+                    security_title: "Security model",
+                    security_algo: "Algorithm",
+                    security_kdf: "Key derivation",
+                    security_hw: "Hardware binding",
+                    security_bf: "Brute‑force protection",
+                    security_desc: "An attacker with the encrypted file but without the USB cannot decrypt. With the USB but without the password neither. If you set an attempt limit and it is reached, the file is locked locally: you can only unlock it with the reset password (stored on the USB).",
+                    authors_title: "Authors",
+                    footer_repo: "Official repository",
+                    footer_site: "Project site",
+                    footer_issues: "Report issue",
+                    footer_discussions: "Discussions",
+                    footer_copy: "© 2025 Roy Merlo & RPX. AVGVSTO v4.0. MIT License.",
+                    footer_tagline: "AES-256-GCM · USB bound · anti-forensic wipe"
+                },
+                it: {
+                    nav_features: "Caratteristiche",
+                    nav_how: "Come funziona",
+                    nav_gallery: "Galleria",
+                    nav_download: "Download",
+                    nav_devlog: "Sviluppo",
+                    nav_security: "Sicurezza",
+                    hero_span: "AES-256-GCM",
+                    hero_with: "con chiave USB",
+                    hero_by: "Creato da Roy Merlo e svulppato assieme a RPX",
+                    hero_desc: "AVGVSTO è una suite di crittografia avanzata che lega ogni file crittografato a una specifica unità USB. Senza quella chiave fisica, la decifratura è impossibile, anche con la password corretta.",
+                    hero_download: "Scarica",
+                    hero_learn: "Scopri di più",
+                    features_title: "Caratteristiche principali",
+                    feature1_title: "Hardware binding",
+                    feature1_desc: "La chiave è derivata dall'identificativo hardware della tua USB. Anche con la password, senza quel preciso drive i file restano illeggibili.",
+                    feature2_title: "AES-256-GCM",
+                    feature2_desc: "Crittografia autenticata, la stessa usata da banche e governi. Protegge sia la confidenzialità che l'integrità.",
+                    feature3_title: "Limite tentativi",
+                    feature3_desc: "Imposta un numero massimo di tentativi di decifratura. Superato il limite, il file viene bloccato localmente.",
+                    feature4_title: "Password duress",
+                    feature4_desc: "Due password distinte producono due file diversi (reale e esca). Nessuno può provare quale sia quella vera.",
+                    feature5_title: "Secure delete",
+                    feature5_desc: "L'originale viene sovrascritto più volte prima della cancellazione, rendendo il recupero impossibile su HDD.",
+                    feature6_title: "Reset password",
+                    feature6_desc: "Se attivi il limite tentativi, puoi impostare una password di reset (salvata sulla USB) per sbloccare i contatori.",
+                    how_title: "Come funziona",
+                    step1_title: "Binda la USB",
+                    step1_desc: "Inserisci la chiavetta e associala come 'drive autorizzato'.",
+                    step2_title: "Cripta",
+                    step2_desc: "Scegli file o cartelle, imposta password e limite tentativi. L'originale viene cancellato in modo sicuro.",
+                    step3_title: "Decripta",
+                    step3_desc: "Collega la stessa USB, fornisci la password. Se i tentativi sono finiti, usa il reset (se configurato).",
+                    gallery_title: "Screenshot",
+                    download_title: "Download",
+                    download_win: "Scarica .exe",
+                    download_mac: "Scarica .dmg",
+                    download_linux: "Scarica .AppImage",
+                    iframe_placeholder: "===",
+                    devlog_title: "Registro di sviluppo",
+                    devlog1_title: "Rilasciata v4.0",
+                    devlog1_desc: "Aggiunta password duress, analisi USB migliorata e nuova UI.",
+                    devlog2_title: "Reset limite tentativi",
+                    devlog2_desc: "Ora puoi resettare i contatori bloccati tramite password di reset su USB.",
+                    devlog3_title: "Modalità portatile",
+                    devlog3_desc: "Introdotto flag .avgvsto_portable per configurazione su USB.",
+                    security_title: "Modello di sicurezza",
+                    security_algo: "Algoritmo",
+                    security_kdf: "Derivazione chiave",
+                    security_hw: "Hardware binding",
+                    security_bf: "Protezione brute‑force",
+                    security_desc: "Un attaccante con il file cifrato ma senza la USB non può decifrare. Con la USB ma senza password neppure. Se hai impostato un limite tentativi e questo viene raggiunto, il file viene bloccato localmente: puoi sbloccarlo solo con la password di reset (salvata sulla USB).",
+                    authors_title: "Autori",
+                    footer_repo: "Repository ufficiale",
+                    footer_site: "Sito del progetto",
+                    footer_issues: "Segnala bug",
+                    footer_discussions: "Discussioni",
+                    footer_copy: "© 2025 Roy Merlo & RPX. AVGVSTO v4.0. Licenza MIT.",
+                    footer_tagline: "AES-256-GCM · USB bound · anti-forensic wipe"
+                }
+            };
+
+            let currentLang = localStorage.getItem('avgvsto-lang') || 'en';
+            const langToggle = document.getElementById('lang-toggle');
+            const elements = document.querySelectorAll('[data-i18n]');
+
+            function setLanguage(lang) {
+                if (!translations[lang]) return;
+                elements.forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                            el.placeholder = translations[lang][key];
+                        } else {
+                            el.innerHTML = translations[lang][key];
+                        }
                     }
-                    drops[i]++;
-                }
+                });
+                langToggle.textContent = lang === 'en' ? 'ITA' : 'ENG';
+                localStorage.setItem('avgvsto-lang', lang);
+                currentLang = lang;
             }
-            setInterval(draw, 33);
-            // Mouse Aura
-            const aura = document.getElementById('mouseAura2');
-            document.addEventListener('mousemove', (e) => {
-                aura.style.left = `${e.clientX}px`;
-                aura.style.top = `${e.clientY}px`;
+
+            langToggle.addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'it' : 'en';
+                setLanguage(newLang);
             });
-            // Handle window resize for canvas
-            window.addEventListener('resize', () => {
-                 canvas.height = window.innerHeight;
-                 canvas.width = window.innerWidth;
+            setLanguage(currentLang);
+
+            // ---------- FADE-IN ON SCROLL ----------
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = { threshold: 0.2, rootMargin: '0px 0px -50px 0px' };
+            const appearOnScroll = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, appearOptions);
+            faders.forEach(fader => appearOnScroll.observe(fader));
+
+            // ---------- LIGHTBOX GALLERY ----------
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeBtn = document.querySelector('.lightbox-close');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const src = item.getAttribute('data-src');
+                    lightboxImg.src = src;
+                    lightbox.classList.add('active');
+                });
             });
-        }
-        // --- Event Listeners ---
-        function setupEventListeners() {
-            setUsbBtn.addEventListener('click', setSecureUsb);
-            encryptBtn.addEventListener('click', () => initiateAction('encrypt'));
-            decryptBtn.addEventListener('click', () => initiateAction('decrypt'));
-            confirmPasswordBtn.addEventListener('click', confirmPassword);
-            cancelPasswordBtn.addEventListener('click', closeModal);
-            closeModalBtn.addEventListener('click', closeModal);
-            // Instructions toggle
-            instructionsToggle.addEventListener('click', () => {
-                const isCollapsed = instructionsContent.style.display === 'none';
-                instructionsContent.style.display = isCollapsed ? 'block' : 'none';
-                instructionsToggle.classList.toggle('collapsed', !isCollapsed);
+
+            closeBtn.addEventListener('click', () => {
+                lightbox.classList.remove('active');
             });
-        }
-        // --- Core Logic ---
-        function loadConfig() {
-            const stored = localStorage.getItem('avgvsto_sim_config_no_attempts_v2');
-            if (stored) {
-                try {
-                    config = JSON.parse(stored);
-                } catch (e) {
-                    console.error("Error loading config:", e);
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
                 }
-            }
-        }
-        function saveConfig() {
-            localStorage.setItem('avgvsto_sim_config_no_attempts_v2', JSON.stringify(config));
-        }
-        function updateStatus(message, type = "info") {
-            statusMessageEl.textContent = message;
-            statusMessageEl.className = "status-message " + type;
-        }
-        function setSecureUsb() {
-            const selectedUsbName = usbSelector.value;
-            if (!selectedUsbName) {
-                updateStatus("Please select a USB drive.", "error");
-                return;
-            }
-            config.secureUsbName = selectedUsbName;
-            config.secureUsbId = USB_IDS[selectedUsbName];
-            saveConfig();
-            updateStatus(`✅ Secure USB drive set to ${selectedUsbName}`, "success");
-            updateUI();
-        }
-        // --- Simulated Crypto Helpers ---
-        function simulateHashPasswordAndUsb(password, usbId) {
-             const encoder = new TextEncoder();
-             const data = encoder.encode(password + usbId);
-             let hash = 0;
-             for (let i = 0; i < data.length; i++) {
-                 const char = data[i];
-                 hash = ((hash << 5) - hash) + char;
-                 hash = hash & hash;
-             }
-             return "sim_hash_" + btoa(password).replace(/=/g, '');
-        }
-        function initiateAction(action) {
-            if (!selectedFileId) {
-                updateStatus("Please select a file or folder first.", "warning");
-                return;
-            }
-            if (action === 'decrypt' && !config.secureUsbId) {
-                updateStatus("Set a secure USB drive first.", "error");
-                return;
-            }
-            currentAction = action;
-            modalTitle.textContent = action === 'encrypt' ? "🔐 Enter Encryption Password" : "🔓 Enter Decryption Password";
-            passwordInput.value = '';
-            passwordModal.style.display = 'block';
-            passwordInput.focus();
-        }
-        function closeModal() {
-            passwordModal.style.display = 'none';
-        }
-        function confirmPassword() {
-            currentPassword = passwordInput.value;
-            if (!currentPassword) {
-                alert("Password is required.");
-                return;
-            }
-            closeModal();
-            if (currentAction === 'encrypt') {
-                performEncryption();
-            } else if (currentAction === 'decrypt') {
-                performDecryption();
-            }
-        }
-        function simulateEncryptionProgress() {
-            progressContainer.style.display = 'block';
-            progressBar.style.width = '0%';
-            
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += Math.random() * 10;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    setTimeout(() => {
-                        progressContainer.style.display = 'none';
-                    }, 500);
-                }
-                progressBar.style.width = `${progress}%`;
-            }, 100);
-        }
-        function performEncryption() {
-            if (!config.secureUsbId) {
-                updateStatus("No secure USB configured for encryption.", "error");
-                return;
-            }
-            const fileObj = findFileById(selectedFileId);
-            if (!fileObj) {
-                updateStatus("Selected file not found.", "error");
-                return;
-            }
-            if (fileObj.isEncrypted) {
-                updateStatus("Cannot encrypt an already encrypted file.", "warning");
-                return;
-            }
-            
-            // Simulate encryption progress
-            simulateEncryptionProgress();
-            
-            setTimeout(() => {
-                const target = findFileOrFolderRef(selectedFileId);
-                if (target && typeof target === 'object' && target.type === 'file') {
-                    target.isEncrypted = true;
-                    target.usbId = config.secureUsbId;
-                    target.passwordHash = simulateHashPasswordAndUsb(currentPassword, config.secureUsbId);
-                    target.name += '.avgvsto';
-                    saveFileSystem();
-                    renderFileSystem();
-                    updateStatus(`✅ File '${target.name.replace('.avgvsto', '')}' encrypted.`, "success");
-                    clearSelection();
-                } else {
-                    updateStatus("Encryption failed (sim error).", "error");
-                }
-            }, 3000);
-        }
-        function performDecryption() {
-            const fileObj = findFileById(selectedFileId);
-            if (!fileObj) {
-                updateStatus("Selected file not found.", "error");
-                return;
-            }
-            if (!fileObj.isEncrypted) {
-                updateStatus("Cannot decrypt a non-encrypted file.", "warning");
-                return;
-            }
-            // 1. Check USB ID
-            if (fileObj.usbId !== config.secureUsbId) {
-                updateStatus(`❌ Wrong USB drive. Need ${fileObj.usbId === USB_IDS["USB_KEY_1"] ? "USB_KEY_1" : "USB_KEY_2"} to decrypt this file.`, "error");
-                return;
-            }
-            // 2. Check Password Hash
-            const enteredPasswordHash = simulateHashPasswordAndUsb(currentPassword, config.secureUsbId);
-            if (enteredPasswordHash !== fileObj.passwordHash) {
-                 if (fileObj.id === 'f4' && currentPassword === 'secret' && config.secureUsbId === USB_IDS["USB_KEY_1"]) {
-                     // Allow pre-encrypted file with known password for demo
-                 } else {
-                     updateStatus(`❌ Incorrect password for this file.`, "error");
-                     return;
-                 }
-            }
-            
-            // Simulate decryption progress
-            simulateEncryptionProgress();
-            
-            setTimeout(() => {
-                // 3. Simulate decryption
-                const target = findFileOrFolderRef(selectedFileId);
-                if (target && typeof target === 'object' && target.type === 'file' && target.isEncrypted) {
-                    target.isEncrypted = false;
-                    target.usbId = null;
-                    target.passwordHash = null;
-                    target.name = target.name.replace(/\.avgvsto$/, '');
-                    saveConfig();
-                    saveFileSystem();
-                    renderFileSystem();
-                    updateStatus(`✅ File '${target.name}' decrypted successfully.`, "success");
-                    clearSelection();
-                } else {
-                    updateStatus("Decryption failed (sim error).", "error");
-                }
-            }, 3000);
-        }
-        // --- File System Simulation ---
-        function saveFileSystem() {
-            localStorage.setItem('avgvsto_sim_filesystem_no_attempts_v2', JSON.stringify(fileSystem));
-        }
-        function loadFileSystem() {
-            const stored = localStorage.getItem('avgvsto_sim_filesystem_no_attempts_v2');
-            if (stored) {
-                try {
-                    fileSystem = JSON.parse(stored);
-                } catch (e) {
-                    console.error("Error loading filesystem:", e);
-                }
-            }
-        }
-        function findFileById(id, items = fileSystem, path = []) {
-            for (const item of items) {
-                const currentPath = [...path, item.id];
-                if (item.id === id) {
-                    return { ...item, path: currentPath };
-                }
-                if (item.type === 'folder' && item.contents) {
-                    const found = findFileById(id, item.contents, currentPath);
-                    if (found) return found;
-                }
-            }
-            return null;
-        }
-        function findFileOrFolderRef(id, items = fileSystem) {
-             for (const item of items) {
-                 if (item.id === id) {
-                     return item;
-                 }
-                 if (item.type === 'folder' && item.contents) {
-                     const found = findFileOrFolderRef(id, item.contents);
-                     if (found) return found;
-                 }
-             }
-             return null;
-         }
-        function renderFileSystem(items = fileSystem, container = fileListEl, depth = 0) {
-             container.innerHTML = '';
-             items.forEach(item => {
-                 const itemEl = document.createElement('div');
-                 itemEl.className = 'file-item';
-                 itemEl.dataset.id = item.id;
-                 itemEl.style.paddingLeft = `${10 + depth * 20}px`;
-                 let icon = '📄';
-                 let color = '#f5a623'; // File color
-                 if (item.type === 'folder') {
-                     icon = '📁';
-                     color = '#7ed321'; // Folder color
-                 } else if (item.isEncrypted) {
-                     icon = '🔒';
-                     color = '#bd10e0'; // Encrypted color
-                 }
-                 itemEl.innerHTML = `
-                     <span class="file-icon" style="color: ${color};">${icon}</span>
-                     <span class="file-name">${item.name}</span>
-                 `;
-                 if (item.id === selectedFileId) {
-                     itemEl.classList.add('selected');
-                 }
-                 itemEl.addEventListener('click', (e) => {
-                     e.stopPropagation();
-                     selectFile(item.id);
-                 });
-                 container.appendChild(itemEl);
-                 if (item.type === 'folder' && item.contents) {
-                     const subContainer = document.createElement('div');
-                     renderFileSystem(item.contents, subContainer, depth + 1);
-                     container.appendChild(subContainer);
-                 }
-             });
-         }
-        function selectFile(id) {
-            selectedFileId = id;
-            document.querySelectorAll('.file-item').forEach(el => el.classList.remove('selected'));
-            document.querySelector(`.file-item[data-id="${id}"]`).classList.add('selected');
-            updateUI();
-        }
-        function clearSelection() {
-            selectedFileId = null;
-            document.querySelectorAll('.file-item').forEach(el => el.classList.remove('selected'));
-            updateUI();
-        }
-        function updateUI() {
-            const fileObj = selectedFileId ? findFileById(selectedFileId) : null;
-            encryptBtn.disabled = !selectedFileId || (fileObj && fileObj.isEncrypted);
-            decryptBtn.disabled = !selectedFileId || (fileObj && !fileObj.isEncrypted) || !config.secureUsbId;
-            if (!selectedFileId) {
-                updateStatus("Select a file or folder.", "info");
-            } else if (fileObj) {
-                if (fileObj.isEncrypted) {
-                    updateStatus(`Selected: ${fileObj.name} (Encrypted)`, "info");
-                } else {
-                    updateStatus(`Selected: ${fileObj.name}`, "info");
-                }
-            }
-        }
+            });
+
+            // ---------- HIGHLIGHT ACTIVE NAV LINK ----------
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    if (scrollY >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        })();
     </script>
 </body>
 </html>
