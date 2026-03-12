@@ -20,9 +20,22 @@
             line-height: 1.6;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            background-image: repeating-linear-gradient(
+                45deg,
+                rgba(0, 255, 204, 0.015) 0px,
+                rgba(0, 255, 204, 0.015) 2px,
+                transparent 2px,
+                transparent 32px
+            );
+            background-size: 60px 60px;
+            animation: bgSlowMove 120s linear infinite;
         }
 
-        /* palette */
+        @keyframes bgSlowMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 120px 120px; }
+        }
+
         :root {
             --bg: #0a0a0a;
             --surface: #111111;
@@ -57,7 +70,6 @@
             padding: 0 2rem;
         }
 
-        /* navbar */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -154,7 +166,6 @@
             color: #0a0a0a;
         }
 
-        /* fade-in animation */
         .fade-in {
             opacity: 0;
             transform: translateY(20px);
@@ -165,7 +176,6 @@
             transform: translateY(0);
         }
 
-        /* pulsanti */
         .btn {
             display: inline-block;
             background: transparent;
@@ -215,7 +225,6 @@
             font-size: 0.9rem;
         }
 
-        /* hero */
         .hero {
             display: flex;
             align-items: center;
@@ -303,7 +312,6 @@
             100% { transform: scale(1); opacity: 0.8; }
         }
 
-        /* sezioni */
         .section {
             padding: 5rem 2rem;
             border-top: 1px solid var(--border);
@@ -329,7 +337,6 @@
             100% { transform: rotate(0deg); }
         }
 
-        /* features grid */
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -366,7 +373,6 @@
             font-size: 0.95rem;
         }
 
-        /* steps */
         .steps {
             display: flex;
             flex-wrap: wrap;
@@ -407,7 +413,6 @@
             margin-bottom: 0.5rem;
         }
 
-        /* gallery */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -444,7 +449,6 @@
             font-size: 0.9rem;
         }
 
-        /* lightbox */
         .lightbox {
             display: none;
             position: fixed;
@@ -477,7 +481,6 @@
             color: var(--accent-red);
         }
 
-        /* download section */
         .download-cards {
             display: flex;
             flex-wrap: wrap;
@@ -518,7 +521,6 @@
             color: var(--text-mid);
         }
 
-        /* devlog */
         .devlog-list {
             display: flex;
             flex-direction: column;
@@ -548,7 +550,104 @@
             color: var(--text-mid);
         }
 
-        /* footer */
+        /* FAQ ACCORDION */
+        .faq-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .faq-item {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            transition: border-color 0.3s;
+        }
+        .faq-item:hover {
+            border-color: var(--accent);
+        }
+        .faq-question {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+        .faq-question i {
+            color: var(--accent);
+            font-size: 1.5rem;
+            width: 2rem;
+            transition: transform 0.3s;
+        }
+        .faq-question h3 {
+            flex: 1;
+            color: var(--text-bright);
+            font-size: 1.2rem;
+            margin: 0;
+        }
+        .faq-question .fa-chevron-down {
+            color: var(--text-mid);
+            transition: transform 0.3s;
+        }
+        .faq-item.active .faq-question .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s;
+            background: var(--surface);
+            border-top: 0 solid var(--border);
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px; /* abbastanza per contenere il testo */
+            border-top-width: 1px;
+            padding: 1.5rem;
+        }
+        .faq-answer p {
+            color: var(--text-mid);
+            margin: 0;
+        }
+
+        .security-badge {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .security-item .label {
+            color: var(--text-mid);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        .security-item .value {
+            color: var(--text-bright);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .authors {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+        }
+        .author {
+            text-align: center;
+        }
+        .author .name {
+            color: var(--text-bright);
+            font-size: 1.5rem;
+        }
+        .author .handle {
+            color: var(--text-mid);
+        }
+        .author .handle.red {
+            color: var(--accent-red);
+        }
+
         .footer {
             border-top: 1px solid var(--border);
             padding: 2rem;
@@ -592,6 +691,7 @@
                 <a href="#download" data-i18n="nav_download">Download</a>
                 <a href="#devlog" data-i18n="nav_devlog">Devlog</a>
                 <a href="#security" data-i18n="nav_security">Security</a>
+                <a href="#faq" data-i18n="nav_faq">FAQ</a>
             </div>
             <button class="lang-switch" id="lang-toggle">ITA</button>
         </div>
@@ -677,67 +777,63 @@
         </div>
     </section>
 
-    <!-- GALLERIA INTERATTIVA -->
     <section id="gallery" class="section container fade-in">
         <div class="section-title">
             <i class="fas fa-images"></i>
             <h2 data-i18n="gallery_title">Screenshots</h2>
         </div>
         <div class="gallery-grid" id="gallery-grid">
-            <!-- immagini placeholder: sostituire con src reali -->
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/00ffcc?text=AVGVSTO+GUI+1">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/PzMxL2Zk/Screenshot-2026-03-12-152401.png" alt="Screenshot 1">
                 <p>AVGVSTO Main interface</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ff3355?text=Encryption+in+progress">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/rKJwFLgL/Screenshot-2026-03-11-122340.png" alt="Screenshot 2">
                 <p>Simple UI</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/00ff88?text=USB+Analysis">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/XrpzVFKh/Screenshot-2026-03-12-111029.png" alt="Screenshot 3">
                 <p>USB analysis tool</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/MDpRKZQm/Screenshot-2026-03-12-182156.png" alt="Screenshot 4">
                 <p>Attemps Reset settings</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/q3F9WqXH/Screenshot-2026-03-12-175731.png" alt="Screenshot 4">
                 <p>Encryption UI</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/Bbjtt0f/Screenshot-2026-03-12-180232.png" alt="Screenshot 4">
                 <p>Encryption progress bar</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/s9wT2jyK/Screenshot-2026-03-12-180408.png" alt="Screenshot 4">
                 <p>Brute Force Locker</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/tPkbxbQw/Screenshot-2026-03-12-181129.png" alt="Screenshot 4">
                 <p>File integrity analyzer</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/3yTRtbYK/Screenshot-2026-03-12-181612.png" alt="Screenshot 4">
                 <p>Single action choice</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/jP3Ld5ms/Screenshot-2026-03-12-181717.png" alt="Screenshot 4">
                 <p>Encryption Password UI</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/1tLN28P0/Screenshot-2026-03-12-181447.png" alt="Screenshot 4">
                 <p>USB Cleaner</p>
             </div>
-            <div class="gallery-item" data-src="https://via.placeholder.com/800x600/111111/ffaa00?text=Attempt+limit">
+            <div class="gallery-item">
                 <img src="https://i.ibb.co/Tx03CZnG/Screenshot-2026-03-12-181409.png" alt="Screenshot 4">
                 <p>Help user guide</p>
             </div>
-
         </div>
     </section>
 
-    <!-- SEZIONE DOWNLOAD con iframe placeholder -->
     <section id="download" class="section container fade-in">
         <div class="section-title">
             <i class="fas fa-download"></i>
@@ -760,13 +856,11 @@
                 <a href="https://github.com/RoyMerlo/AVGVSTO/releases" class="btn btn-small" data-i18n="download_linux">Download .AppImage</a>
             </div>
         </div>
-        <!-- IFrame placeholder: puoi inserire qui il tuo iframe (es. da GitHub o altro) -->
         <div class="iframe-placeholder">
             <iframe frameborder="0" src="https://itch.io/embed/3574694?border_width=5&amp;bg_color=000000&amp;fg_color=0cffba&amp;link_color=9fff4e&amp;border_color=ffffff" width="560" height="175"><a href="https://r-px.itch.io/avgvsto">AVGVSTO by Rpx</a></iframe>
         </div>
     </section>
 
-    <!-- DEVLOG -->
     <section id="devlog" class="section container fade-in">
         <div class="section-title">
             <i class="fas fa-history"></i>
@@ -821,6 +915,126 @@
         </p>
     </section>
 
+    <!-- FAQ ACCORDION (10+ domande) -->
+    <section id="faq" class="section container fade-in">
+        <div class="section-title">
+            <i class="fas fa-question-circle"></i>
+            <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-accordion" id="faqAccordion">
+            <!-- 1 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-usb"></i>
+                    <h3 data-i18n="faq1_title">What if I lose my USB drive?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq1_desc">Without the exact USB drive, decryption is impossible. We strongly recommend backing up the encrypted files and storing the USB in a safe place. There is no backdoor.</p>
+                </div>
+            </div>
+            <!-- 2 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-sync-alt"></i>
+                    <h3 data-i18n="faq2_title">Can I change the USB binding after encryption?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq2_desc">No, the binding is permanent. You would need to decrypt the file with the original USB and re-encrypt it with the new drive.</p>
+                </div>
+            </div>
+            <!-- 3 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-hourglass-half"></i>
+                    <h3 data-i18n="faq3_title">What happens when the attempt limit is reached?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq3_desc">The file becomes locked locally. If you configured a reset password (stored on the USB), you can use it to unlock the counter and try again.</p>
+                </div>
+            </div>
+            <!-- 4 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-user-secret"></i>
+                    <h3 data-i18n="faq4_title">Is the duress password really safe?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq4_desc">Yes. The two files (real and decoy) are indistinguishable. There is no way to prove which password unlocks meaningful data.</p>
+                </div>
+            </div>
+            <!-- 5 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-usb"></i>
+                    <h3 data-i18n="faq5_title">Can I use any USB drive?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq5_desc">Yes, any USB flash drive or external HDD/SSD should work, as long as it provides a unique hardware identifier. Some very old drives might not work properly.</p>
+                </div>
+            </div>
+            <!-- 6 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-microchip"></i>
+                    <h3 data-i18n="faq6_title">Does AVGVSTO work on SSD?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq6_desc">Yes, but the secure delete function is less effective on SSDs due to wear leveling. We still overwrite the data, but physical recovery might be possible on some SSDs.</p>
+                </div>
+            </div>
+            <!-- 7 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-id-card"></i>
+                    <h3 data-i18n="faq7_title">How is the USB identifier retrieved?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq7_desc">AVGVSTO reads the USB's serial number and manufacturer data via the operating system's low-level APIs. This combination is hashed and used as part of the encryption key.</p>
+                </div>
+            </div>
+            <!-- 8 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-folder"></i>
+                    <h3 data-i18n="faq8_title">Can I encrypt entire folders?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq8_desc">Absolutely. You can select a folder and AVGVSTO will compress and encrypt its contents into a single .avgvsto file.</p>
+                </div>
+            </div>
+            <!-- 9 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fab fa-osi"></i>
+                    <h3 data-i18n="faq9_title">Is the software open source?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq9_desc">Yes, AVGVSTO is completely open source under the MIT license. You can inspect, modify, and distribute the code freely.</p>
+                </div>
+            </div>
+            <!-- 10 -->
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-weight-hanging"></i>
+                    <h3 data-i18n="faq10_title">What is the maximum file size?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-i18n="faq10_desc">There is no hard limit. AVGVSTO uses streaming encryption, so it can handle files up to several terabytes, limited only by available disk space and memory.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="section container fade-in">
         <div class="section-title">
             <i class="fas fa-code-branch"></i>
@@ -848,11 +1062,10 @@
             <a href="https://github.com/RoyMerlo/AVGVSTO/discussions" data-i18n="footer_discussions">Discussions</a>
             <a href="mailto:avgvstorm@gmail.com">avgvstorm@gmail.com</a>
         </div>
-        <p data-i18n="footer_copy">© 2025 Roy Merlo & RPX. AVGVSTO v3.1.3. MIT License.</p>
+        <p data-i18n="footer_copy">© 2025 Roy Merlo & RPX. AVGVSTO v4.0. MIT License.</p>
         <p style="margin-top:0.5rem;" data-i18n="footer_tagline">"AES-256-GCM · USB bound · anti-forensic wipe"</p>
     </footer>
 
-    <!-- Lightbox -->
     <div id="lightbox" class="lightbox">
         <span class="lightbox-close">&times;</span>
         <img id="lightbox-img" src="" alt="">
@@ -860,7 +1073,7 @@
 
     <script>
         (function() {
-            // ---------- TRANSLATIONS (stesso blocco di prima) ----------
+            // ---------- TRANSLATIONS (con nuove voci per FAQ) ----------
             const translations = {
                 en: {
                     nav_features: "Features",
@@ -869,6 +1082,7 @@
                     nav_download: "Download",
                     nav_devlog: "Devlog",
                     nav_security: "Security",
+                    nav_faq: "FAQ",
                     hero_span: "AES-256-GCM",
                     hero_with: "with USB key",
                     hero_by: "Powered by Roy Merlo and developed in collaboration with RPX",
@@ -900,7 +1114,6 @@
                     download_win: "Download .exe",
                     download_mac: "Download .dmg",
                     download_linux: "Download .AppImage",
-                    iframe_placeholder: "===",
                     devlog_title: "Development log",
                     devlog1_title: "v4.0 released",
                     devlog1_desc: "Added duress password support, improved USB analysis, and new UI.",
@@ -920,7 +1133,28 @@
                     footer_issues: "Report issue",
                     footer_discussions: "Discussions",
                     footer_copy: "© 2025 Roy Merlo & RPX. AVGVSTO v4.0. MIT License.",
-                    footer_tagline: "AES-256-GCM · USB bound · anti-forensic wipe"
+                    footer_tagline: "AES-256-GCM · USB bound · anti-forensic wipe",
+                    faq_title: "Frequently Asked Questions",
+                    faq1_title: "What if I lose my USB drive?",
+                    faq1_desc: "Without the exact USB drive, decryption is impossible. We strongly recommend backing up the encrypted files and storing the USB in a safe place. There is no backdoor.",
+                    faq2_title: "Can I change the USB binding after encryption?",
+                    faq2_desc: "No, the binding is permanent. You would need to decrypt the file with the original USB and re-encrypt it with the new drive.",
+                    faq3_title: "What happens when the attempt limit is reached?",
+                    faq3_desc: "The file becomes locked locally. If you configured a reset password (stored on the USB), you can use it to unlock the counter and try again.",
+                    faq4_title: "Is the duress password really safe?",
+                    faq4_desc: "Yes. The two files (real and decoy) are indistinguishable. There is no way to prove which password unlocks meaningful data.",
+                    faq5_title: "Can I use any USB drive?",
+                    faq5_desc: "Yes, any USB flash drive or external HDD/SSD should work, as long as it provides a unique hardware identifier. Some very old drives might not work properly.",
+                    faq6_title: "Does AVGVSTO work on SSD?",
+                    faq6_desc: "Yes, but the secure delete function is less effective on SSDs due to wear leveling. We still overwrite the data, but physical recovery might be possible on some SSDs.",
+                    faq7_title: "How is the USB identifier retrieved?",
+                    faq7_desc: "AVGVSTO reads the USB's serial number and manufacturer data via the operating system's low-level APIs. This combination is hashed and used as part of the encryption key.",
+                    faq8_title: "Can I encrypt entire folders?",
+                    faq8_desc: "Absolutely. You can select a folder and AVGVSTO will compress and encrypt its contents into a single .avgvsto file.",
+                    faq9_title: "Is the software open source?",
+                    faq9_desc: "Yes, AVGVSTO is completely open source under the MIT license. You can inspect, modify, and distribute the code freely.",
+                    faq10_title: "What is the maximum file size?",
+                    faq10_desc: "There is no hard limit. AVGVSTO uses streaming encryption, so it can handle files up to several terabytes, limited only by available disk space and memory."
                 },
                 it: {
                     nav_features: "Caratteristiche",
@@ -929,9 +1163,10 @@
                     nav_download: "Download",
                     nav_devlog: "Sviluppo",
                     nav_security: "Sicurezza",
+                    nav_faq: "FAQ",
                     hero_span: "AES-256-GCM",
                     hero_with: "con chiave USB",
-                    hero_by: "Creato da Roy Merlo e svulppato assieme a RPX",
+                    hero_by: "Creato da Roy Merlo e sviluppato assieme a RPX",
                     hero_desc: "AVGVSTO è una suite di crittografia avanzata che lega ogni file crittografato a una specifica unità USB. Senza quella chiave fisica, la decifratura è impossibile, anche con la password corretta.",
                     hero_download: "Scarica",
                     hero_learn: "Scopri di più",
@@ -960,7 +1195,6 @@
                     download_win: "Scarica .exe",
                     download_mac: "Scarica .dmg",
                     download_linux: "Scarica .AppImage",
-                    iframe_placeholder: "===",
                     devlog_title: "Registro di sviluppo",
                     devlog1_title: "Rilasciata v4.0",
                     devlog1_desc: "Aggiunta password duress, analisi USB migliorata e nuova UI.",
@@ -980,7 +1214,28 @@
                     footer_issues: "Segnala bug",
                     footer_discussions: "Discussioni",
                     footer_copy: "© 2025 Roy Merlo & RPX. AVGVSTO v4.0. Licenza MIT.",
-                    footer_tagline: "AES-256-GCM · USB bound · anti-forensic wipe"
+                    footer_tagline: "AES-256-GCM · USB bound · anti-forensic wipe",
+                    faq_title: "Domande frequenti",
+                    faq1_title: "Cosa succede se perdo la USB?",
+                    faq1_desc: "Senza l'esatta unità USB, la decifratura è impossibile. Consigliamo vivamente di fare un backup dei file cifrati e conservare la USB in un luogo sicuro. Non esiste alcuna backdoor.",
+                    faq2_title: "Posso cambiare la USB dopo la cifratura?",
+                    faq2_desc: "No, il binding è permanente. Dovresti decifrare il file con la USB originale e ricifrarlo con la nuova chiavetta.",
+                    faq3_title: "Cosa succede quando si raggiunge il limite tentativi?",
+                    faq3_desc: "Il file viene bloccato localmente. Se hai configurato una password di reset (salvata sulla USB), puoi usarla per sbloccare il contatore e riprovare.",
+                    faq4_title: "La password duress è davvero sicura?",
+                    faq4_desc: "Sì. I due file (reale e esca) sono indistinguibili. Non c'è modo di provare quale password sblocchi dati significativi.",
+                    faq5_title: "Posso usare qualsiasi chiavetta USB?",
+                    faq5_desc: "Sì, qualsiasi chiavetta o hard disk esterno dovrebbe funzionare, purché fornisca un identificatore hardware univoco. Alcuni drive molto vecchi potrebbero non funzionare correttamente.",
+                    faq6_title: "AVGVSTO funziona su SSD?",
+                    faq6_desc: "Sì, ma la funzione di cancellazione sicura è meno efficace sugli SSD a causa del wear leveling. I dati vengono comunque sovrascritti, ma su alcuni SSD il recupero fisico potrebbe essere possibile.",
+                    faq7_title: "Come viene recuperato l'identificatore USB?",
+                    faq7_desc: "AVGVSTO legge il numero di serie e i dati del produttore della USB tramite API di basso livello del sistema operativo. Questa combinazione viene hashata e usata come parte della chiave di cifratura.",
+                    faq8_title: "Posso cifrare intere cartelle?",
+                    faq8_desc: "Assolutamente sì. Puoi selezionare una cartella e AVGVSTO comprimerà e cifrerà il suo contenuto in un unico file .avgvsto.",
+                    faq9_title: "Il software è open source?",
+                    faq9_desc: "Sì, AVGVSTO è completamente open source sotto licenza MIT. Puoi ispezionare, modificare e distribuire il codice liberamente.",
+                    faq10_title: "Qual è la dimensione massima del file?",
+                    faq10_desc: "Non c'è un limite fisso. AVGVSTO utilizza la cifratura in streaming, quindi può gestire file fino a diversi terabyte, limitati solo dallo spazio su disco e dalla memoria disponibile."
                 }
             };
 
@@ -1023,7 +1278,7 @@
             }, appearOptions);
             faders.forEach(fader => appearOnScroll.observe(fader));
 
-            // ---------- LIGHTBOX GALLERY ----------
+            // ---------- LIGHTBOX GALLERY (usa l'immagine effettiva) ----------
             const galleryItems = document.querySelectorAll('.gallery-item');
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
@@ -1031,9 +1286,11 @@
 
             galleryItems.forEach(item => {
                 item.addEventListener('click', () => {
-                    const src = item.getAttribute('data-src');
-                    lightboxImg.src = src;
-                    lightbox.classList.add('active');
+                    const img = item.querySelector('img');
+                    if (img) {
+                        lightboxImg.src = img.src;
+                        lightbox.classList.add('active');
+                    }
                 });
             });
 
@@ -1045,6 +1302,21 @@
                 if (e.target === lightbox) {
                     lightbox.classList.remove('active');
                 }
+            });
+
+            // ---------- FAQ ACCORDION ----------
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    // Chiudi gli altri (opzionale, per esperienza utente)
+                    faqItems.forEach(other => {
+                        if (other !== item && other.classList.contains('active')) {
+                            other.classList.remove('active');
+                        }
+                    });
+                    item.classList.toggle('active');
+                });
             });
 
             // ---------- HIGHLIGHT ACTIVE NAV LINK ----------
