@@ -47,8 +47,8 @@
     ],
     "offers": [
       {"@type":"Offer","name":"Free","price":"0","priceCurrency":"EUR"},
-      {"@type":"Offer","name":"Pro","price":"39","priceCurrency":"EUR"},
-      {"@type":"Offer","name":"Business","price":"149","priceCurrency":"EUR"}
+      {"@type":"Offer","name":"Pro","price":"29","priceCurrency":"EUR"},
+      {"@type":"Offer","name":"Business","price":"79","priceCurrency":"EUR"}
     ],
     "codeRepository": "https://github.com/RoyMerlo/AVGVSTO",
     "author": {"@type":"Person","name":"Roy Merlo"}
@@ -538,7 +538,7 @@
       font-size: 2.8rem;
       color: var(--accent);
     }
-    .price-card.plan-pro { background: rgba(58, 255, 215, 0.03); }
+    .price-card.plan-pro { background: #004D40; }
     .price-card.plan-pro::before {
       content: '⏍ DOMINANT';
       position: absolute;
@@ -549,7 +549,7 @@
       border: 1px solid var(--accent);
       padding: 2px 8px;
     }
-    .price-card.plan-biz { background: rgba(255, 83, 112, 0.03); }
+    .price-card.plan-biz { background: #0A2647; }
 
     /* ===== DOWNLOAD HERO ===== */
     .download-area {
@@ -801,19 +801,19 @@
       <p class="price-desc">Unlimited files, ChaCha20, duress mode, CLI, portable.</p>
       <ul style="list-style:none; margin:20px 0;">
         <li style="color: rgb(255, 242, 0);"><i class="fas fa-check check"></i> Everything in Free</li>
-        <li><i class="fas fa-check check"></i> ChaCha20-Poly1305 cipher</li>
-        <li><i class="fas fa-check check"></i> Duress/decoy password</li>
-        <li><i class="fas fa-check check"></i> 100 files/batch · Unlimited/day</li>
-        <li><i class="fas fa-check check"></i> Full CLI access</li>
-        <li><i class="fas fa-check check"></i> Portable mode (USB config)</li>
-        <li><i class="fas fa-check check"></i> Duress / decoy password</li>
-        <li><i class="fas fa-check check"></i> Priority email support</li>
+        <li style="color: #ffffff;"><i class="fas fa-check check"></i> ChaCha20-Poly1305 cipher</li>
+        <li style="color: #ffffff;"><i class="fas fa-check check"></i> Duress/decoy password</li>
+        <li style="color: #ffffff;"><i class="fas fa-check check"></i> 100 files/batch · Unlimited/day</li>
+        <li style="color: #ffffff;"><i class="fas fa-check check"></i> Full CLI access</li>
+        <li style="color: #ffffff;"><i class="fas fa-check check"></i> Portable mode (USB config)</li>
+        <li style="color: #ffffff;"><i class="fas fa-check check"></i> Duress / decoy password</li>
+        <li style="color: #ffffff;"><i class="fas fa-check check"></i> Priority email support</li>
       </ul>
       <a href="#" class="btn btn-ghost" style="width:100%;">Buy Pro</a>
     </div>
     <div class="price-card plan-biz">
-      <span class="section-label">BUSINESS · €149</span>
-      <h3>€149</h3>
+      <span style="color: #58A6FF;" class="section-label">BUSINESS · €79</span>
+      <h3 style="color: #a1cdff;">€79</h3>
       <p class="price-desc">Cascade encryption, audit logs, silent deploy.</p>
       <ul style="list-style:none; margin:20px 0;">
         <li style="color: rgb(255, 242, 0);"><i class="fas fa-check check" style="color: #f2ff00;"></i> Everything in Pro</li>
@@ -825,7 +825,7 @@
         <li><i class="fas fa-check" style="color:gold"></i> Dedicated support</li>
         <li><i class="fas fa-check" style="color:gold"></i> Advanced USB Managementgold
       </ul>
-      <a href="mailto:contact@avgvsto.io" class="btn btn-danger" style="width:100%;">Contact</a>
+      <a href="mailto:contact@avgvsto.io" class="btn btn-ghost" style="width:100%; color: rgb(255, 204, 0);">Contact</a>
     </div>
   </div>
 </section>
