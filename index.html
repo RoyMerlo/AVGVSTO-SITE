@@ -635,6 +635,114 @@
       padding-bottom: 24px;
     }
 
+    /* ===== TRUST SECTION (INTEGRATA E OTTIMIZZATA) ===== */
+    .trust-section {
+      padding: 6rem 5% 8rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(0deg, var(--accent-dim) 0%, transparent 100%);
+    }
+    .trust-title {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+    .slider-container { 
+      width: 100%;
+      overflow: hidden; 
+      position: relative; 
+      padding: 2rem 0; 
+      mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    }
+    .slider-track { 
+      display: flex; 
+      animation: infiniteScroll 30s linear infinite; 
+      width: max-content;
+      gap: 5rem;
+    }
+    .slider-container:hover .slider-track { animation-play-state: paused; }
+    .slide { 
+      position: relative; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+    }
+    .partner-logo { 
+      height: 45px; 
+      width: auto; 
+      filter: grayscale(100%) brightness(0.8); 
+      opacity: 0.5; 
+      transition: all 0.4s ease; 
+      cursor: help; 
+    }
+    .small-logo { height: 36px; }
+    .invert-logo { filter: invert(1) grayscale(100%) brightness(0.8); }
+    .slide:hover .partner-logo { 
+      filter: grayscale(0%) brightness(1); 
+      opacity: 1; 
+      transform: scale(1.1); 
+    }
+    .slide:hover .invert-logo { filter: invert(0) grayscale(0%) brightness(1); }
+    .slide::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(5px);
+      background: var(--accent);
+      color: #000;
+      padding: 6px 14px;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      pointer-events: none;
+      z-index: 100;
+      border: 1px solid var(--accent);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+    .slide:hover::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .legal-footer-home { 
+      margin-top: 3.5rem; 
+      text-align: center; 
+    }
+    .legal-footer-home p { 
+      font-size: 0.7rem; 
+      color: var(--text-muted); 
+      margin: 0; 
+      font-family: var(--mono);
+    }
+    .legal-footer-home a { 
+      color: var(--accent); 
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .legal-footer-home a:hover {
+      text-decoration: none;
+      background: var(--accent-dim);
+    }
+    @keyframes infiniteScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-50% - 2.5rem)); } 
+    }
+    
     /* ===== FOOTER ===== */
     footer {
       background: var(--black-light);
@@ -672,6 +780,11 @@
       .pricing-grid { grid-template-columns: 1fr; }
       .download-cards { flex-direction: column; }
       nav { display: none; }
+      .slider-track { gap: 3rem; } 
+      @keyframes infiniteScroll {
+        100% { transform: translateX(calc(-50% - 1.5rem)); }
+      }
+      .slide::after { display: none; }
     }
   </style>
 </head>
@@ -681,12 +794,13 @@
 
 <!-- HEADER -->
 <header id="main-header">
-  <a href="#" class="logo">AVGVSTO<span>4.0</span></a>
+  <a href="#" class="logo"><img style="width: 8%;" src="https://i.ibb.co/dsB0tnQ3/avl.png" alt=""><span>4.0</span></a>
   <nav>
     <a href="#architecture">Architecture</a>
     <a href="#compare">Compare</a>
     <a href="#gallery">Interface</a>
     <a href="#pricing">Pricing</a>
+    <a href="#trust">Trust</a>
     <a href="#faq">FAQ</a>
     <a href="#download" class="nav-cta">Download</a>
   </nav>
@@ -720,7 +834,7 @@
   </div>
 </div>
 
-<!-- ARCHITECTURE (with more info) -->
+<!-- ARCHITECTURE -->
 <section id="architecture" class="section">
   <span class="section-label reveal">CRYPTO CORE</span>
   <h2 class="section-title reveal">Built for <em class="glitch-text" data-text="total dominance">total dominance</em></h2>
@@ -734,7 +848,7 @@
   </div>
 </section>
 
-<!-- COMPARISON (brutal victory) -->
+<!-- COMPARISON -->
 <section id="compare" class="section" style="background: var(--black-light);">
   <span class="section-label reveal">OBLITERATION MATRIX</span>
   <h2 class="section-title reveal">AVGVSTO <span style="color:var(--accent);">vs</span> pretenders</h2>
@@ -754,7 +868,7 @@
   </div>
 </section>
 
-<!-- GALLERY (multiples of 4) -->
+<!-- GALLERY -->
 <section id="gallery" class="section">
   <span class="section-label reveal">TERMINAL INTERFACE</span>
   <h2 class="section-title reveal">No bloat. Just execution.</h2>
@@ -830,7 +944,66 @@
   </div>
 </section>
 
-<!-- DOWNLOAD (EPIC) -->
+<!-- TRUST SECTION (INTEGRATA) -->
+<section class="trust-section" id="trust">
+    <div class="container">
+        <span class="section-label reveal">TECHNOLOGY AND INFO</span>
+        <h2 class="section-title reveal" style="margin-bottom: 1rem; color: #202020;">What we use and <span data-text="hosters">what we rely on</span></h2>
+
+        <div class="slider-container reveal">
+            <div class="slider-track">
+                <div class="slide" data-tooltip="In collaboration with GDSchool">
+                    <img src="https://i.ibb.co/SXnqwrNK/GDSL.png" alt="GDSchool" class="partner-logo" loading="lazy">
+                </div>
+                <div class="slide" data-tooltip="Project host">
+                    <img src="https://i.ibb.co/M5Z0SJQV/github1.png" alt="GitHub" class="partner-logo" loading="lazy">
+                </div>
+                <div class="slide" data-tooltip="Project Hoster">
+                    <img src="https://i.ibb.co/ymRh0VPc/italiman8712.png" alt="Godot Engine" class="partner-logo" loading="lazy">
+                </div>
+                <div class="slide" data-tooltip="Safe Payments">
+                    <img src="https://i.ibb.co/NgytFbhB/expstr1276.png" alt="Stripe" class="partner-logo small-logo" loading="lazy">
+                </div>
+                <div class="slide" data-tooltip="Development Tecnology">
+                    <img src="https://i.ibb.co/JWsBD3sz/pyt.png" alt="Python" class="partner-logo small-logo invert-logo" loading="lazy">
+                </div>
+                
+                <div class="slide" data-tooltip="In collaboration with GDSchool">
+                    <img src="https://i.ibb.co/SXnqwrNK/GDSL.png" alt="GDSchool" class="partner-logo" loading="lazy">
+                </div>
+                <div class="slide" data-tooltip="Project host">
+                    <img src="https://i.ibb.co/M5Z0SJQV/github1.png" alt="GitHub" class="partner-logo" loading="lazy">
+                </div>
+                <div class="slide" data-tooltip="Project Hoster">
+                    <img src="https://i.ibb.co/ymRh0VPc/italiman8712.png" alt="Godot Engine" class="partner-logo" loading="lazy">
+                </div>
+                <div class="slide" data-tooltip="Safe Payments">
+                    <img src="https://i.ibb.co/NgytFbhB/expstr1276.png" alt="Stripe" class="partner-logo small-logo" loading="lazy">
+                </div>
+                <div class="slide" data-tooltip="Development Tecnology">
+                    <img src="https://i.ibb.co/JWsBD3sz/pyt.png" alt="Python" class="partner-logo small-logo invert-logo" loading="lazy">
+                </div>
+                
+                </div>
+            </div>
+        </div>
+        
+        <div class="legal-footer-home reveal">
+          <p>
+            The trademarks listed belong to their respective owners. They are used solely for the purpose of demonstrating the technologies used and the hosting provider. <hr>
+            There is no commercial affiliation, sponsorship, partnership, or official endorsement by the owners of the trademarks mentioned with respect to AVGVSTO USB.
+          </p>
+          <br>
+        <span class="section-label reveal">Our official partners</span>
+        <div class="slide" data-tooltip="OUR PARTNERS">
+          <a href="https://gdschool.education/"><img src="https://i.ibb.co/SXnqwrNK/GDSL.png" alt="GDSchool" class="partner-logo" loading="lazy"> </a>
+          <a href="https://r-px.itch.io/"> <img src="https://i.ibb.co/QFtgYRZS/rpx-mon.png" alt="Rpx" class="partner-logo" loading="lazy"> </a>
+        </div>
+        </div>
+    </div>
+</section>
+
+<!-- DOWNLOAD -->
 <section id="download" class="section">
   <div class="download-area reveal">
     <div class="download-glow"></div>
